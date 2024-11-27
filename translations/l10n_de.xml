@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+	<texts>
+		<text name="input_MAP_OBJECT_HIDER_HIDE"		text="Ausblenden eines Kartenobjekts"/>
+		<text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Nur Kollision entfernen"/>
+		<text name="input_MAP_OBJECT_HIDER_GUI" 		text="Öffnen Sie das Panel Map Objects Hider"/>
+		<text name="moh_MAP_OBJECT_HIDER_GUI" 			text="Liste der versteckten Objekte anzeigen"/>
+		<text name="moh_HIDE" 							text="Ausblenden (%s)"/>
+		<text name="moh_DECOLLIDE"						text="Kollision entfernen (%s)"/>
+		<text name="moh_SELL" 							text="Verkaufen (%s)"/>
+		<text name="moh_DELETE" 						text="Löschen (%s)"/>
+		<text name="moh_dialog_title" 					text="Map Objects Hider"/>
+		<text name="moh_dialog_text" 					text="Sind Sie sicher, dass Sie %s ausblenden möchten?"/>
+		<text name="moh_delete_split_shape_dialog_text" text="Möchten Sie diesen Baum wirklich entfernen?"/>
+		<text name="moh_sell_dialog_text"				text="Sind Sie sicher, dass Sie %s verkaufen möchten?" />
+		<text name="moh_gui_title"						text="Versteckte Objekte" />
+		<text name="moh_gui_loading_text"				text="Versteckte Objekte laden..." />
+		<text name="moh_gui_no_objects_text"			text="Bisher wurden keine Objekte ausgeblendet" />
+		<text name="moh_gui_button_restore"				text="Wiederherstellen" />
+	</texts>
+</l10n>

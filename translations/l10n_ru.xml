@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <translationContributors>nagor</translationContributors>
+	<texts>
+		<text name="input_MAP_OBJECT_HIDER_HIDE"		text="Скрыть объект"/>.
+		<text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Удалить только столкновение"/>
+		<text name="input_MAP_OBJECT_HIDER_GUI"			text="Открыть панель Скрытые объекты"/>
+		<text name="moh_MAP_OBJECT_HIDER_GUI"			text="Показать список скрытых объектов"/>
+		<text name="moh_HIDE"							text="Скрыть (%s)"/>
+		<text name="moh_DECOLLIDE"						text="Удалить столкновение (%s)"/>
+		<text name="moh_SELL"							text="Продать (%s)"/>
+		<text name="moh_DELETE"							text="Удалить (%s)"/>
+		<text name="moh_dialog_title"					text="Скрытие объектов на карте"/>
+		<text name="moh_dialog_text"					text="Вы уверены, что хотите скрыть %s?"/>
+		<text name="moh_delete_split_shape_dialog_text"	text="Вы уверены, что хотите удалить это дерево?"/>
+		<text name="moh_sell_dialog_text"				text="Вы уверены, что хотите продать %s?" />
+		<text name="moh_gui_title"						text="Скрытые объекты" />
+		<text name="moh_gui_loading_text"				text="Загрузка скрытых объектов…" />
+		<text name="moh_gui_no_objects_text"			text="Нет скрытых объектов" />
+		<text name="moh_gui_button_restore"				text="Восстановить" />
+	</texts>
+</l10n>

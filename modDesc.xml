@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="92">
+    <author>Achimobil</author>
+    <version>0.0.0.1</version>
+
+    <title>
+        <de>Map Objekt Hider</de>
+        <en>Map Objects Hider</en>
+        <cz>Skrývání Objektů Na Mapě</cz>
+    </title>
+
+    <description>
+        <de><![CDATA[comming later]]></de>
+    </description>
+
+    <multiplayer supported="true"/>
+    <iconFilename>icon_MapObjectsHider.png</iconFilename>
+
+    <extraSourceFiles>
+        <sourceFile filename="mapObjectsHider.lua"/>
+        <sourceFile filename="playerExtension.lua"/>
+        <!-- <sourceFile filename="events/deleteSplitShapeEvent.lua" /> -->
+        <!-- <sourceFile filename="events/hideDecollideNode.lua" /> -->
+        <!-- <sourceFile filename="events/requestObjectsListEvent.lua" /> -->
+        <!-- <sourceFile filename="events/sendObjectsListEvent.lua" /> -->
+        <!-- <sourceFile filename="events/objectShowRequestEvent.lua" /> -->
+        <!-- <sourceFile filename="events/showCollideNodeEvent.lua" /> -->
+        <!-- <sourceFile filename="events/objectHideRequest.lua" /> -->
+        <!-- <sourceFile filename="events/loadMapObjectsHiderDataResult.lua" /> -->
+        <!-- <sourceFile filename="scripts/ArrayUtility.lua" /> -->
+        <!-- <sourceFile filename="scripts/playerExtension.lua" /> -->
+        <!-- <sourceFile filename="scripts/DebugUtility.lua" /> -->
+        <!-- <sourceFile filename="scripts/EntityUtility.lua" /> -->
+        <!-- <sourceFile filename="scripts/Utility.lua" /> -->
+        <!-- <sourceFile filename="scripts/StringUtility.lua" /> -->
+    </extraSourceFiles>
+
+    <actions>
+        <action name="MAP_OBJECT_HIDER_HIDE" category="ONFOOT" axisType="HALF"/>
+        <!-- <action name="MAP_OBJECT_HIDER_HIDE" axisType="HALF" /> -->
+        <!-- <action name="MAP_OBJECT_HIDER_DECOLLIDE" axisType="HALF" /> -->
+        <!-- <action name="MAP_OBJECT_HIDER_GUI" axisType="HALF" /> -->
+    </actions>
+
+    <inputBinding>
+        <actionBinding action="MAP_OBJECT_HIDER_HIDE" >
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_h" />
+        </actionBinding>
+        <!-- <actionBinding action="MAP_OBJECT_HIDER_HIDE"> -->
+            <!-- <binding device="KB_MOUSE_DEFAULT" input="KEY_h" /> -->
+        <!-- </actionBinding> -->
+        <!-- <actionBinding action="MAP_OBJECT_HIDER_DECOLLIDE"> -->
+            <!-- <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_h" /> -->
+        <!-- </actionBinding> -->
+        <!-- <actionBinding action="MAP_OBJECT_HIDER_GUI"> -->
+            <!-- <binding device="KB_MOUSE_DEFAULT" input="KEY_lshift KEY_h" /> -->
+        <!-- </actionBinding> -->
+    </inputBinding>
+
+    <l10n filenamePrefix="translations/l10n" />
+</modDesc>
