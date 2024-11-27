@@ -9,7 +9,7 @@
     <gameSourceDirectory>C:/Program Files (x86)/Farming Simulator 2025/</gameSourceDirectory>
     <scriptBinding>C:/Program Files (x86)/Farming Simulator 2025/sdk/debugger/scriptBinding.xml</scriptBinding>
     <launchWorkingDirectory>C:/Program Files (x86)/Farming Simulator 2025/</launchWorkingDirectory>
-    <launchExecutable>C:/Program Files (x86)/Farming Simulator 2025/x64/FarmingSimulator2022Game.exe</launchExecutable>
+    <launchExecutable>C:/Program Files (x86)/Farming Simulator 2025/x64/FarmingSimulator2025Game.exe</launchExecutable>
     <launchProfiles>
         <launchProfile name="default" parameters="" />
     </launchProfiles>

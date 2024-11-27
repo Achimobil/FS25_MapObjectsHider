@@ -18,8 +18,7 @@
 
     <extraSourceFiles>
         <sourceFile filename="mapObjectsHider.lua"/>
-        <sourceFile filename="playerExtension.lua"/>
-        <!-- <sourceFile filename="events/deleteSplitShapeEvent.lua" /> -->
+        <sourceFile filename="events/deleteSplitShapeEvent.lua" />
         <!-- <sourceFile filename="events/hideDecollideNode.lua" /> -->
         <!-- <sourceFile filename="events/requestObjectsListEvent.lua" /> -->
         <!-- <sourceFile filename="events/sendObjectsListEvent.lua" /> -->
@@ -28,9 +27,9 @@
         <!-- <sourceFile filename="events/objectHideRequest.lua" /> -->
         <!-- <sourceFile filename="events/loadMapObjectsHiderDataResult.lua" /> -->
         <!-- <sourceFile filename="scripts/ArrayUtility.lua" /> -->
-        <!-- <sourceFile filename="scripts/playerExtension.lua" /> -->
-        <!-- <sourceFile filename="scripts/DebugUtility.lua" /> -->
-        <!-- <sourceFile filename="scripts/EntityUtility.lua" /> -->
+        <sourceFile filename="scripts/playerExtension.lua" />
+        <sourceFile filename="scripts/DebugUtility.lua" />
+        <sourceFile filename="scripts/EntityUtility.lua" />
         <!-- <sourceFile filename="scripts/Utility.lua" /> -->
         <!-- <sourceFile filename="scripts/StringUtility.lua" /> -->
     </extraSourceFiles>

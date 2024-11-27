@@ -8,3 +8,4 @@ images
 SourceModels
 FS19_MapObjectsHider
 *.gsp
+*.gspu
