@@ -1,0 +1,9 @@
+*.cmd
+*.txt
+*.md
+.git*
+*.png
+store\*.png
+images
+SourceModels
+FS19_MapObjectsHider
