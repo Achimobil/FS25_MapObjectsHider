@@ -9,3 +9,4 @@ SourceModels
 FS19_MapObjectsHider
 *.gsp
 *.gspu
+*.zip
