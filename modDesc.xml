@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="92">
+<modDesc descVersion="93">
     <author>Achimobil</author>
-    <version>0.0.0.1</version>
+    <version>0.0.0.2</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -19,25 +19,24 @@
     <extraSourceFiles>
         <sourceFile filename="mapObjectsHider.lua"/>
         <sourceFile filename="events/deleteSplitShapeEvent.lua" />
-        <!-- <sourceFile filename="events/hideDecollideNode.lua" /> -->
+        <sourceFile filename="events/hideDecollideNode.lua" />
         <!-- <sourceFile filename="events/requestObjectsListEvent.lua" /> -->
         <!-- <sourceFile filename="events/sendObjectsListEvent.lua" /> -->
         <!-- <sourceFile filename="events/objectShowRequestEvent.lua" /> -->
         <!-- <sourceFile filename="events/showCollideNodeEvent.lua" /> -->
-        <!-- <sourceFile filename="events/objectHideRequest.lua" /> -->
+        <sourceFile filename="events/objectHideRequest.lua" />
         <!-- <sourceFile filename="events/loadMapObjectsHiderDataResult.lua" /> -->
         <!-- <sourceFile filename="scripts/ArrayUtility.lua" /> -->
         <sourceFile filename="scripts/playerExtension.lua" />
         <sourceFile filename="scripts/DebugUtility.lua" />
         <sourceFile filename="scripts/EntityUtility.lua" />
-        <!-- <sourceFile filename="scripts/Utility.lua" /> -->
+        <sourceFile filename="scripts/Utility.lua" />
         <!-- <sourceFile filename="scripts/StringUtility.lua" /> -->
     </extraSourceFiles>
 
     <actions>
         <action name="MAP_OBJECT_HIDER_HIDE" category="ONFOOT" axisType="HALF"/>
-        <!-- <action name="MAP_OBJECT_HIDER_HIDE" axisType="HALF" /> -->
-        <!-- <action name="MAP_OBJECT_HIDER_DECOLLIDE" axisType="HALF" /> -->
+        <action name="MAP_OBJECT_HIDER_DECOLLIDE" category="ONFOOT" axisType="HALF"/>
         <!-- <action name="MAP_OBJECT_HIDER_GUI" axisType="HALF" /> -->
     </actions>
 
@@ -45,12 +44,9 @@
         <actionBinding action="MAP_OBJECT_HIDER_HIDE" >
             <binding device="KB_MOUSE_DEFAULT" input="KEY_h" />
         </actionBinding>
-        <!-- <actionBinding action="MAP_OBJECT_HIDER_HIDE"> -->
-            <!-- <binding device="KB_MOUSE_DEFAULT" input="KEY_h" /> -->
-        <!-- </actionBinding> -->
-        <!-- <actionBinding action="MAP_OBJECT_HIDER_DECOLLIDE"> -->
-            <!-- <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_h" /> -->
-        <!-- </actionBinding> -->
+        <actionBinding action="MAP_OBJECT_HIDER_DECOLLIDE" >
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_j" />
+        </actionBinding>
         <!-- <actionBinding action="MAP_OBJECT_HIDER_GUI"> -->
             <!-- <binding device="KB_MOUSE_DEFAULT" input="KEY_lshift KEY_h" /> -->
         <!-- </actionBinding> -->

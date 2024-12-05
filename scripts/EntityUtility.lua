@@ -11,7 +11,7 @@ Skript version 0.2.0.0 of 01.01.2023
 ]]
 
 
----@class EntityUtility
+-- @class EntityUtility
 EntityUtility = EntityUtility or {}
 
 --- Get the class id and name of an onject
@@ -30,9 +30,9 @@ function EntityUtility.getObjectClass(objectId)
 end
 
 --- Determines whether a node is a child of a given node
----@param childNode integer
----@param parentNode integer
----@return boolean
+-- @param integer childNode
+-- @param integer parentNode
+-- @return Boolean isChild
 function EntityUtility.isChildOf(childNode, parentNode)
     if childNode == nil or childNode == 0 or parentNode == nil or parentNode == 0 then
         return false
@@ -48,9 +48,9 @@ function EntityUtility.isChildOf(childNode, parentNode)
 end
 
 --- Get the node index relative to root node
----@param nodeId integer id of node
----@param rootId integer id of root node
----@return string nodeIndex index of node
+-- @param nodeId integer id of node
+-- @param rootId integer id of root node
+-- @return string nodeIndex index of node
 function EntityUtility.nodeToIndex(nodeId, rootId)
     local index = ""
     if nodeId ~= nil and entityExists(nodeId) and rootId ~= nil and entityExists(rootId) and EntityUtility.isChildOf(nodeId, rootId) then
@@ -65,9 +65,9 @@ function EntityUtility.nodeToIndex(nodeId, rootId)
 end
 
 --- Get a node id by an index
----@param nodeIndex string index of node
----@param rootId integer id of root node
----@return integer nodeId id of node
+-- @param nodeIndex string index of node
+-- @param rootId integer id of root node
+-- @return integer nodeId id of node
 function EntityUtility.indexToNode(nodeIndex, rootId)
     if nodeIndex == nil or rootId == nil or not entityExists(rootId) then
         return nil
@@ -90,8 +90,8 @@ function EntityUtility.indexToNode(nodeIndex, rootId)
 end
 
 --- Queries a node hierarchy
----@param inputNode integer
----@param func fun(node: integer, name: string, depth: integer)
+-- @param inputNode integer
+-- @param func fun(node: integer, name: string, depth: integer)
 function EntityUtility.queryNodeHierarchy(inputNode, func)
     if not type(inputNode) == "number" or not entityExists(inputNode) or func == nil then
         return
@@ -110,12 +110,12 @@ function EntityUtility.queryNodeHierarchy(inputNode, func)
 end
 
 --- Get the hash of a node hierarchy
----@param node integer
----@param parent integer
----@param md5 boolean
----@return string hash hash of the node hierarchy
+-- @param node integer
+-- @param parent integer
+-- @param md5 boolean
+-- @return string hash hash of the node hierarchy
 function EntityUtility.getNodeHierarchyHash(node, parent, md5)
-	MapObjectsHider.print("EntityUtility.getNodeHierarchyHash(%s,%s,%s)", tostring(node), tostring(parent), tostring(md5));
+    MapObjectsHider.DebugText("EntityUtility.getNodeHierarchyHash(%s,%s,%s)", tostring(node), tostring(parent), tostring(md5));
     if node == nil or not type(node) == "number" or not entityExists(node) or parent == nil or not type(parent) == "number" or not entityExists(parent) then
         return string.format("Invalid hash node:%s parent:%s", node, parent)
     end
@@ -164,8 +164,8 @@ function EntityUtility.getNodeHierarchyHash(node, parent, md5)
 end
 
 --- Queries node parents (return false to break the loop)
----@param inputNode integer
----@param func function | "function(node, name, depth) return true end"
+-- @param inputNode integer
+-- @param func function | "function(node, name, depth) return true end"
 function EntityUtility.queryNodeParents(inputNode, func)
     if not type(inputNode) == "number" or not entityExists(inputNode) or func == nil then
         return

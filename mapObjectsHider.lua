@@ -22,6 +22,9 @@ MapObjectsHider.debug = true;
 MapObjectsHider.hideConfirmEnabled = true;
 MapObjectsHider.sellConfirmEnabled = true;
 MapObjectsHider.deleteSplitShapeConfirmEnabled = true;
+MapObjectsHider.currentEventId = nil;
+MapObjectsHider.currentEvent2Id = nil;
+MapObjectsHider.hiddenObjects = {}
 
 --- Print the given Table to the log
 -- @param string text parameter Text before the table
@@ -62,11 +65,12 @@ function MapObjectsHider:update(dt)
 
     -- Ausgabe der Debug Info wenn vorhanden
     if MapObjectsHider.debug and self.debugInfo ~= nil then
-        DebugUtility.renderTable(0.05, 0.98, 0.009, self.debugInfo, 4, false)
+        DebugUtility.renderTable(0.05, 0.98, 0.009, self.debugInfo, 4, false);
     end
 
     if MapObjectsHider.debug and self.hideObjectDebugInfo ~= nil then
-        DebugUtility.renderTable(0.35, 0.98, 0.009, self.hideObjectDebugInfo, 4, false)
+        DebugUtility.renderTable(0.35, 0.98, 0.009, self.hideObjectDebugInfo, 4, false);
+        self.hideObjectDebugInfo = nil;
     end
 
 
@@ -77,22 +81,27 @@ function MapObjectsHider:update(dt)
     if hitObjectId ~= nil then
         if getHasClassId(hitObjectId, ClassIds.SHAPE) then
 --             if hitObjectId == self.lastRaycastHitObjectId and not MapObjectsHider.debug then
-            if hitObjectId == self.lastRaycastHitObjectId then
+            if hitObjectId == self.lastRaycastHitObjectId and not MapObjectsHider.debug then
                 self.raycastHideObject = self.lastRaycastHideObject
                 return;
             end
-            local objectFound = false
+            local objectFound = false;
+            local actionText = "";
+            local action2Text = "";
             local rigidBodyType = getRigidBodyType(hitObjectId)
 --             MapObjectsHider.DebugText("rigidBodyType %s", rigidBodyType);
 
             if (rigidBodyType == RigidBodyType.STATIC or rigidBodyType == RigidBodyType.DYNAMIC) then
                 if getSplitType(hitObjectId) ~= 0 then
-                    self.raycastHideObject = {name = getName(getParent(hitObjectId)), objectId = hitObjectId, isSplitShape = true}
+                    -- when is a tree deletable? Only when on own or unowned land
+                    local splitTypeObject = g_splitShapeManager:getSplitTypeByIndex(getSplitType(hitObjectId))
+                    self.raycastHideObject = {name = splitTypeObject.title or "something", objectId = hitObjectId, isSplitShape = true}
                     if MapObjectsHider.debug then
                         -- debug placeable
-                        self.hideObjectDebugInfo = {type = "Split Type", splitType = g_splitShapeManager:getSplitTypeByIndex(getSplitType(hitObjectId))}
+                        self.hideObjectDebugInfo = {type = "Split Type", splitType = splitTypeObject };
                     end
-                    objectFound = true
+                    objectFound = true;
+                    actionText = g_i18n:getText("moh_DELETE"):format(self.raycastHideObject.name);
                 elseif g_currentMission:getNodeObject(hitObjectId) == nil then
                     local object = {}
                     object.id, object.name = MapObjectsHider:getRealHideObject(hitObjectId)
@@ -103,6 +112,8 @@ function MapObjectsHider:update(dt)
                             self.hideObjectDebugInfo = MapObjectsHider:getObjectDebugInfo(object.id)
                         end
                         objectFound = true
+                        actionText = g_i18n:getText("moh_HIDE"):format(self.raycastHideObject.name);
+                        action2Text = g_i18n:getText("moh_DECOLLIDE"):format(self.raycastHideObject.name);
                     end
                 else
                     local object = g_currentMission:getNodeObject(hitObjectId)
@@ -117,6 +128,7 @@ function MapObjectsHider:update(dt)
                                     self.hideObjectDebugInfo = {type = "Placeable", storeItem = storeItem}
                                 end
                                 objectFound = true
+                                actionText = g_i18n:getText("moh_SELL"):format(self.raycastHideObject.name);
                             end
                         end
                     end
@@ -125,7 +137,29 @@ function MapObjectsHider:update(dt)
             if objectFound then
                 self.lastRaycastHitObjectId = hitObjectId
                 self.lastRaycastHideObject = self.raycastHideObject
+
+                -- update text of F1 menü
+                if MapObjectsHider.currentEventId ~= nil then
+                    g_inputBinding:setActionEventText(MapObjectsHider.currentEventId, actionText);
+                    g_inputBinding:setActionEventActive(MapObjectsHider.currentEventId, true);
+                    g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEventId, true);
+                end
+                if MapObjectsHider.action2Text ~= "" then
+                    g_inputBinding:setActionEventText(MapObjectsHider.currentEvent2Id, action2Text);
+                    g_inputBinding:setActionEventActive(MapObjectsHider.currentEvent2Id, true);
+                    g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEvent2Id, true);
+                end
             end
+        end
+    else
+        -- hide and disable action when nothing is now in range
+        if MapObjectsHider.currentEventId ~= nil then
+            g_inputBinding:setActionEventActive(MapObjectsHider.currentEventId, false)
+            g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEventId, false)
+        end
+        if MapObjectsHider.currentEvent2Id ~= nil then
+            g_inputBinding:setActionEventActive(MapObjectsHider.currentEvent2Id, false)
+            g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEvent2Id, false)
         end
     end
 end
@@ -229,12 +263,19 @@ function MapObjectsHider:getObjectDebugInfo(objectId)
 end
 
 ---Event callback for menu input.
-function MapObjectsHider:hideObjectActionEvent(actionName, inputValue, callbackState, isAnalog, isMouse, deviceCategory)
-    MapObjectsHider.DebugText("hideObjectActionEvent(%s, %s, %s, %s, %s, %s)", actionName, inputValue, callbackState, isAnalog, isMouse, deviceCategory)
+function MapObjectsHider:hideObjectActionEvent()
+    MapObjectsHider.DebugText("hideObjectActionEvent()")
     self:baseObjectActionEvent(false)
 end
 
+---Event callback for menu input.
+function MapObjectsHider:decollideObjectActionEvent()
+    MapObjectsHider.DebugText("decollideObjectActionEvent()")
+    self:baseObjectActionEvent(true)
+end
+
 --- base method for all callbacs
+-- @param Boolean onlyDecollide
 function MapObjectsHider:baseObjectActionEvent(onlyDecollide)
     MapObjectsHider.DebugText("baseObjectActionEvent(%s)", onlyDecollide);
     MapObjectsHider.DebugText("raycastHideObject(%s)", self.raycastHideObject);
@@ -243,8 +284,9 @@ function MapObjectsHider:baseObjectActionEvent(onlyDecollide)
         self.raycastHideObjectBackup = self.raycastHideObject
         self.onlyDecollide = onlyDecollide
         if self.raycastHideObject.isSellable then
+            -- raycastHideObject only contains sellable object, when user is allowed to sell
             if MapObjectsHider.sellConfirmEnabled then
-                YesNoDialog.show(self.deleteSplitShapeDialogCallback, self, g_i18n:getText("moh_sell_dialog_text"), g_i18n:getText("moh_dialog_title"))
+                YesNoDialog.show(self.sellObjectDialogCallback, self, g_i18n:getText("moh_sell_dialog_text"):format(self.raycastHideObject.name), g_i18n:getText("moh_dialog_title"))
             else
                 self:sellObjectDialogCallback(true)
             end
@@ -255,8 +297,10 @@ function MapObjectsHider:baseObjectActionEvent(onlyDecollide)
                 self:deleteSplitShapeDialogCallback(true)
             end
         else
+            -- check if object to hide is on own or unowned farm land.
+            -- But how to find that?
             if MapObjectsHider.hideConfirmEnabled then
-                YesNoDialog.show(self.deleteSplitShapeDialogCallback, self, g_i18n:getText("moh_dialog_text"), g_i18n:getText("moh_dialog_title"))
+                YesNoDialog.show(self.hideObjectDialogCallback, self, g_i18n:getText("moh_dialog_text"):format(self.raycastHideObject.name), g_i18n:getText("moh_dialog_title"))
             else
                 self:hideObjectDialogCallback(true)
             end
@@ -264,13 +308,151 @@ function MapObjectsHider:baseObjectActionEvent(onlyDecollide)
     end
 end
 
---- Doalog call back
+--- Dialog call back
+-- @param boolean yes
+function MapObjectsHider:sellObjectDialogCallback(yes)
+    MapObjectsHider.DebugText("sellObjectDialogCallback(%s)", yes);
+    if yes and self.raycastHideObjectBackup ~= nil and self.raycastHideObjectBackup.object ~= nil then
+        g_client:getServerConnection():sendEvent(SellPlaceableEvent.new(self.raycastHideObjectBackup.object, false, true, true))
+    end
+end
+
+--- Dialog call back
 -- @param boolean yes
 function MapObjectsHider:deleteSplitShapeDialogCallback(yes)
     MapObjectsHider.DebugText("deleteSplitShapeDialogCallback(%s)", yes);
     if yes and self.raycastHideObjectBackup ~= nil and self.raycastHideObjectBackup.objectId ~= nil then
         DeleteSplitShapeEvent.sendEvent(self.raycastHideObjectBackup.objectId)
     end
+end
+
+--- Dialog call back
+--@param boolean yes
+function MapObjectsHider:hideObjectDialogCallback(yes)
+    MapObjectsHider.DebugText("hideObjectDialogCallback(%s)", yes);
+    if yes and self.raycastHideObjectBackup ~= nil and self.raycastHideObjectBackup.id ~= nil then
+        self:hideObject(self.raycastHideObjectBackup.id, nil, nil, self.onlyDecollide)
+        self.raycastHideObjectBackup = nil
+    end
+end
+
+--- Hide the given object
+-- @param integer objectId
+-- @param string name
+-- @param string hiderPlayerName
+-- @param Boolean onlyDecollide
+function MapObjectsHider:hideObject(objectId, name, hiderPlayerName, onlyDecollide)
+    MapObjectsHider.DebugText("MapObjectsHider:hideObject(%s, %s, %s, %s)", objectId, name, hiderPlayerName, onlyDecollide);
+    if g_server ~= nil then
+        local objectName = name or getName(objectId)
+
+        local object = MapObjectsHider:getHideObject(objectId, objectName, hiderPlayerName);
+        object.onlyDecollide = onlyDecollide;
+--         MapObjectsHider.DebugTable("object", object);
+
+        if MapObjectsHider:checkHideObject(object) then
+            if not onlyDecollide then
+                self:hideNode(object.id)
+                HideDecollideNodeEvent.sendToClients(object.index, true)
+            end
+            for _, collision in pairs(object.collisions) do
+                self:decollideNode(collision.id)
+                HideDecollideNodeEvent.sendToClients(collision.index, false)
+            end
+            table.insert(self.hiddenObjects, object)
+        end
+    else
+        ObjectHideRequestEvent.sendToServer(objectId, onlyDecollide)
+    end
+end
+
+--- get the object to hide
+-- @param integer objectId
+-- @param string objectName
+-- @param string hiderPlayerName
+-- @return table object
+function MapObjectsHider:getHideObject(objectId, objectName, hiderPlayerName)
+    -- @class HideObject
+    local object = {}
+    object.index = EntityUtility.nodeToIndex(objectId, self.mapNode);
+    object.id = objectId;
+    object.hash = EntityUtility.getNodeHierarchyHash(objectId, self.mapNode, self.md5);
+    object.name = objectName;
+    object.date = getDate("%d/%m/%Y");
+    object.time = getDate("%H:%M:%S");
+    object.timestamp = Utility.getTimestamp();
+    object.player = hiderPlayerName or g_currentMission.playerNickname;
+
+    -- @type HideObjectCollision[]
+    object.collisions = {}
+    EntityUtility.queryNodeHierarchy(
+        objectId,
+        -- @param node integer
+        -- @param name string
+        function(node, name)
+            local rigidType = getRigidBodyType(node)
+            if rigidType ~= RigidBodyType.NONE then
+                -- @class HideObjectCollision
+                local col = {}
+                col.index = EntityUtility.nodeToIndex(node, self.mapNode)
+                col.name = name
+                col.id = node
+                col.rigidBodyType = rigidType
+                table.insert(object.collisions, col)
+            end
+        end
+    )
+    return object
+end
+
+--- Check Object to hide
+-- @param table object
+-- @return boolean isHideAllowed
+function MapObjectsHider:checkHideObject(object)
+    if type(object.id) ~= "number" or not entityExists(object.id) then
+        return false
+    end
+
+    if object.hash ~= EntityUtility.getNodeHierarchyHash(object.id, self.mapNode, self.md5) then
+        return false
+    end
+
+    if object.name ~= getName(object.id) then
+        return false
+    end
+
+    for _, collision in pairs(object.collisions) do
+        if type(collision.id) ~= "number" or not entityExists(collision.id) then
+            return false
+        end
+
+        if collision.rigidBodyType ~= getRigidBodyType(collision.id) then
+            return false
+        end
+
+        if collision.name ~= getName(collision.id) then
+            return false
+        end
+    end
+
+    return true
+end
+
+--- Hide the node
+-- @param integer nodeId
+function MapObjectsHider:hideNode(nodeId)
+    setVisibility(nodeId, false)
+end
+
+--- remove collision from the node
+-- @param integer nodeId
+function MapObjectsHider:decollideNode(nodeId)
+    if nodeId == nil then
+        MapObjectsHider.DebugText("Get nil on decollideNode. Prevent executing");
+        return;
+    end
+
+    setRigidBodyType(nodeId, RigidBodyType.NONE)
 end
 
 addModEventListener(MapObjectsHider);
