@@ -25,6 +25,8 @@ MapObjectsHider.deleteSplitShapeConfirmEnabled = true;
 MapObjectsHider.currentEventId = nil;
 MapObjectsHider.currentEvent2Id = nil;
 MapObjectsHider.hiddenObjects = {}
+MapObjectsHider.revision = 1
+MapObjectsHider.md5 = not MapObjectsHider.debug
 
 --- Print the given Table to the log
 -- @param string text parameter Text before the table
@@ -51,8 +53,13 @@ end
 --- on load the map
 --@param string i3dName i3d name
 function MapObjectsHider:loadMap(i3dName)
-    MapObjectsHider.DebugText("loadMap: %s", i3dName)
---     MapObjectsHider.targeter = PlayerTargeter.new(self)
+--     MapObjectsHider.DebugText("loadMap: %s", i3dName)
+
+    -- speichern/laden mit dem savegame
+    FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, MapObjectsHider.saveToXMLFile)
+
+    self.mapNode = g_currentMission.maps[1];
+    self:loadFromXML();
 end
 
 --- executed per frame
@@ -170,6 +177,8 @@ function MapObjectsHider:update(dt)
                     g_inputBinding:setActionEventText(MapObjectsHider.currentEvent2Id, action2Text);
                     g_inputBinding:setActionEventActive(MapObjectsHider.currentEvent2Id, true);
                     g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEvent2Id, true);
+                else
+                    g_inputBinding:setActionEventActive(MapObjectsHider.currentEvent2Id, false)
                 end
             end
         end
@@ -191,7 +200,7 @@ end
 -- @return integer | nil id of the object
 -- @return string name of the object
 function MapObjectsHider:getRealHideObject(objectId)
-    MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject(%s)", objectId)
+--     MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject(%s)", objectId)
     -- local amo = self.animatedMapObjectCollisions[objectId]
     -- if amo ~= nil then
         -- return amo.mapObjectsHider.rootNode, getName(amo.mapObjectsHider.rootNode)
@@ -215,7 +224,7 @@ function MapObjectsHider:getRealHideObject(objectId)
 
     if getIsLockedGroup(getParent(parent)) then
         local rootNode = getParent(parent)
-        MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - getIsLockedGroup")
+--         MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - getIsLockedGroup")
         return rootNode, getName(rootNode)
     end
 
@@ -364,7 +373,7 @@ end
 --- Dialog call back
 --@param boolean yes
 function MapObjectsHider:hideObjectDialogCallback(yes)
-    MapObjectsHider.DebugText("hideObjectDialogCallback(%s)", yes);
+--     MapObjectsHider.DebugText("hideObjectDialogCallback(%s)", yes);
     if yes and self.raycastHideObjectBackup ~= nil and self.raycastHideObjectBackup.id ~= nil then
         self:hideObject(self.raycastHideObjectBackup.id, nil, nil, self.onlyDecollide)
         self.raycastHideObjectBackup = nil
@@ -482,12 +491,135 @@ end
 --- remove collision from the node
 -- @param integer nodeId
 function MapObjectsHider:decollideNode(nodeId)
+
     if nodeId == nil then
         MapObjectsHider.DebugText("Get nil on decollideNode. Prevent executing");
         return;
     end
 
     setRigidBodyType(nodeId, RigidBodyType.NONE)
+end
+
+--- save the hidden list to the savegame
+function MapObjectsHider:saveToXMLFile()
+    MapObjectsHider.DebugText("saveToXMLFile()");
+
+    if g_server ~= nil then
+        local spec = MapObjectsHider
+        local file = string.format("%s/mapObjectsHider.xml", g_currentMission.missionInfo.savegameDirectory)
+        MapObjectsHider.DebugText("save to file %s", tostring(file));
+        local xmlFile = createXMLFile("mapObjectsHider_xml_temp", file, "mapObjectsHider")
+        setXMLInt(xmlFile, "mapObjectsHider#revision", spec.revision)
+        setXMLBool(xmlFile, "mapObjectsHider#md5", spec.md5)
+        local index = 0
+        for _, object in pairs(spec.hiddenObjects) do
+            local key = string.format("mapObjectsHider.hiddenObjects.object(%d)", index)
+            setXMLString(xmlFile, key .. "#name", object.name)
+            setXMLString(xmlFile, key .. "#index", object.index)
+            setXMLString(xmlFile, key .. "#date", object.date)
+            setXMLString(xmlFile, key .. "#time", object.time)
+            setXMLString(xmlFile, key .. "#player", object.player)
+            setXMLBool(xmlFile, key .. "#onlyDecollide", object.onlyDecollide or false)
+            setXMLInt(xmlFile, key .. "#timestamp", object.timestamp)
+            setXMLString(xmlFile, key .. "#hash", object.hash)
+
+            local cIndex = 0
+            for _, collision in pairs(object.collisions) do
+                local cKey = string.format("%s.collision(%d)", key, cIndex)
+                setXMLString(xmlFile, cKey .. "#name", collision.name)
+                setXMLString(xmlFile, cKey .. "#index", collision.index)
+                setXMLInt(xmlFile, cKey .. "#rigidBodyType", collision.rigidBodyType)
+                cIndex = cIndex + 1
+            end
+
+            index = index + 1
+        end
+        saveXMLFile(xmlFile)
+        delete(xmlFile)
+    end
+end
+
+--- load the hidden list from the savegame
+function MapObjectsHider:loadFromXML()
+    MapObjectsHider.DebugText("MapObjectsHider:loadFromXML()");
+
+    if g_server ~= nil then
+        local file = string.format("%s/mapObjectsHider.xml", g_currentMission.missionInfo.savegameDirectory)
+        if fileExists(file) then
+            local xmlFile = loadXMLFile("mapObjectsHider_xml_temp", file)
+            local savegameUpdate = false
+            local savegameRevision = getXMLInt(xmlFile, "mapObjectsHider#revision") or 0
+            if savegameRevision < self.revision then
+                Logging.devInfo("[%s] Updating savegame from revision %d to %d", self.name, savegameRevision, self.revision)
+                savegameUpdate = true
+            end
+            local savegameMd5 = getXMLBool(xmlFile, "mapObjectsHider#md5") or false
+            if savegameMd5 ~= self.md5 then
+                savegameUpdate = true
+            end
+            local index = 0
+            while true do
+                local key = string.format("mapObjectsHider.hiddenObjects.object(%d)", index)
+                if hasXMLProperty(xmlFile, key) then
+                    ---@type HideObject
+                    local object = {}
+                    object.name = getXMLString(xmlFile, key .. "#name") or ""
+                    object.index = getXMLString(xmlFile, key .. "#index") or ""
+                    object.hash = getXMLString(xmlFile, key .. "#hash") or ""
+                    object.date = getXMLString(xmlFile, key .. "#date") or ""
+                    object.time = getXMLString(xmlFile, key .. "#time") or ""
+                    object.player = getXMLString(xmlFile, key .. "#player") or ""
+                    object.onlyDecollide = getXMLBool(xmlFile, key .. "#onlyDecollide") or false
+                    object.timestamp = getXMLInt(xmlFile, key .. "#timestamp") or self.getTimestampFromDateAndTime(object.date, object.time)
+                    object.id = EntityUtility.indexToNode(object.index, self.mapNode)
+                    if object.id ~= nil then
+                        local newHash = EntityUtility.getNodeHierarchyHash(object.id, self.mapNode, self.md5)
+                        if savegameUpdate then
+                            object.hash = newHash
+                        end
+                        if newHash == object.hash then
+                            if not object.onlyDecollide then
+                                self:hideNode(object.id)
+                            end
+                            ---@type HideObjectCollision[]
+                            object.collisions = {}
+                            local cIndex = 0
+                            while true do
+                                local cKey = string.format("%s.collision(%d)", key, cIndex)
+                                if hasXMLProperty(xmlFile, cKey) then
+                                    local collision = {}
+                                    collision.name = getXMLString(xmlFile, cKey .. "#name") or ""
+                                    collision.index = getXMLString(xmlFile, cKey .. "#index") or ""
+                                    collision.rigidBodyType = getXMLInt(xmlFile, cKey .. "#rigidBodyType") or RigidBodyType.NONE
+                                    collision.id = EntityUtility.indexToNode(collision.index, self.mapNode)
+                                    if collision.id ~= nil and getRigidBodyType(collision.id) == collision.rigidBodyType then
+                                        self:decollideNode(collision.id)
+                                        table.insert(object.collisions, collision)
+                                    end
+                                    cIndex = cIndex + 1
+                                else
+                                    break
+                                end
+                            end
+                            table.insert(self.hiddenObjects, object)
+                        else
+                            self:printObjectLoadingError(object.name)
+                            if self.debug then
+                                Logging.devInfo("  Old: %s", object.hash)
+                                Logging.devInfo("  New: %s", newHash)
+                            end
+                        end
+                    else
+                        self:printObjectLoadingError(object.name)
+                    end
+                    index = index + 1
+                else
+                    break
+                end
+            end
+            delete(xmlFile)
+        end
+    end
 end
 
 addModEventListener(MapObjectsHider);
