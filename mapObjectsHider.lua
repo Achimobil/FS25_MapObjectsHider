@@ -79,8 +79,8 @@ function MapObjectsHider:update(dt)
     -- raycast aus dem neuen 25er targeter abgerufen
     local hitObjectId = g_localPlayer.targeter:getClosestTargetedNodeFromType(MapObjectsHider);
     if hitObjectId ~= nil then
+--         MapObjectsHider.DebugText("getHasClassId(%s, ClassIds.SHAPE) = %s", hitObjectId, getHasClassId(hitObjectId, ClassIds.SHAPE))
         if getHasClassId(hitObjectId, ClassIds.SHAPE) then
---             if hitObjectId == self.lastRaycastHitObjectId and not MapObjectsHider.debug then
             if hitObjectId == self.lastRaycastHitObjectId and not MapObjectsHider.debug then
                 self.raycastHideObject = self.lastRaycastHideObject
                 return;
@@ -92,6 +92,7 @@ function MapObjectsHider:update(dt)
 --             MapObjectsHider.DebugText("rigidBodyType %s", rigidBodyType);
 
             if (rigidBodyType == RigidBodyType.STATIC or rigidBodyType == RigidBodyType.DYNAMIC) then
+--                 MapObjectsHider.DebugText("splitType %s", getSplitType(hitObjectId));
                 if getSplitType(hitObjectId) ~= 0 then
                     -- when is a tree deletable? Only when on own or unowned land
                     local splitTypeObject = g_splitShapeManager:getSplitTypeByIndex(getSplitType(hitObjectId))
@@ -103,6 +104,7 @@ function MapObjectsHider:update(dt)
                     objectFound = true;
                     actionText = g_i18n:getText("moh_DELETE"):format(self.raycastHideObject.name);
                 elseif g_currentMission:getNodeObject(hitObjectId) == nil then
+--                     MapObjectsHider.DebugText("g_currentMission:getNodeObject(%s)", hitObjectId)
                     local object = {}
                     object.id, object.name = MapObjectsHider:getRealHideObject(hitObjectId)
                     if object.id ~= nil then
@@ -117,18 +119,38 @@ function MapObjectsHider:update(dt)
                     end
                 else
                     local object = g_currentMission:getNodeObject(hitObjectId)
+--                     MapObjectsHider.DebugTable("else object", object)
+--                     MapObjectsHider.DebugText("object:isa(Placeable)) - %s", object:isa(Placeable))
                     if object:isa(Placeable) then
                         local storeItem = g_storeManager:getItemByXMLFilename(object.configFileName)
                         if storeItem ~= nil then
-                            local canSell = object:canBeSold() and storeItem.canBeSold and g_currentMission:getFarmId() == object:getOwnerFarmId();
+--                             MapObjectsHider.DebugText("object:canBeSold() = %s - storeItem.canBeSold = %s - g_currentMission:getFarmId() = %s - object:getOwnerFarmId() = %s", object:canBeSold(), storeItem.canBeSold, g_currentMission:getFarmId(), object:getOwnerFarmId());
+
+
+                            local allowedToSell = g_currentMission:getFarmId() == object:getOwnerFarmId();
+                            local canSell = object:canBeSold() and storeItem.canBeSold;
+                            local isFromSpectator = object:getOwnerFarmId() == 0;
+--                             MapObjectsHider.DebugText("allowedToSell = %s - canSell = %s", allowedToSell, canSell);
                             if canSell then
-                                self.raycastHideObject = {name = storeItem.name, object = object, isSellable = true}
-                                if MapObjectsHider.debug then
-                                    -- debug placeable
-                                    self.hideObjectDebugInfo = {type = "Placeable", storeItem = storeItem}
+                                if allowedToSell then
+                                    -- this is a placable and the user is allowed to sell
+                                    self.raycastHideObject = {name = storeItem.name, object = object, isSellable = true, needsToBeDeleted = false};
+                                    if MapObjectsHider.debug then
+                                        self.hideObjectDebugInfo = {type = "Placeable", storeItem = storeItem};
+                                    end
+                                    objectFound = true;
+                                    actionText = g_i18n:getText("moh_SELL"):format(self.raycastHideObject.name);
+                                elseif isFromSpectator then
+                                    -- this is a placable from spectator and then it needs to be deleted
+                                    self.raycastHideObject = {name = storeItem.name, object = object, isSellable = true, needsToBeDeleted = true};
+                                    if MapObjectsHider.debug then
+                                        self.hideObjectDebugInfo = {type = "Placeable", storeItem = storeItem};
+                                    end
+                                    objectFound = true;
+                                    actionText = g_i18n:getText("moh_DELETE"):format(self.raycastHideObject.name);
                                 end
-                                objectFound = true
-                                actionText = g_i18n:getText("moh_SELL"):format(self.raycastHideObject.name);
+                            else
+                                MapObjectsHider.DebugText("Placable not sellable");
                             end
                         end
                     end
@@ -284,11 +306,20 @@ function MapObjectsHider:baseObjectActionEvent(onlyDecollide)
         self.raycastHideObjectBackup = self.raycastHideObject
         self.onlyDecollide = onlyDecollide
         if self.raycastHideObject.isSellable then
-            -- raycastHideObject only contains sellable object, when user is allowed to sell
-            if MapObjectsHider.sellConfirmEnabled then
-                YesNoDialog.show(self.sellObjectDialogCallback, self, g_i18n:getText("moh_sell_dialog_text"):format(self.raycastHideObject.name), g_i18n:getText("moh_dialog_title"))
+            if self.raycastHideObject.needsToBeDeleted then
+                -- here the Placeable is from spectator farm, so needs to be deleted
+                if MapObjectsHider.sellConfirmEnabled then
+                    YesNoDialog.show(self.sellObjectDialogCallback, self, g_i18n:getText("moh_delete_dialog_text"):format(self.raycastHideObject.name), g_i18n:getText("moh_dialog_title"))
+                else
+                    self:sellObjectDialogCallback(true)
+                end
             else
-                self:sellObjectDialogCallback(true)
+                -- raycastHideObject only contains sellable object, when user is allowed to sell
+                if MapObjectsHider.sellConfirmEnabled then
+                    YesNoDialog.show(self.sellObjectDialogCallback, self, g_i18n:getText("moh_sell_dialog_text"):format(self.raycastHideObject.name), g_i18n:getText("moh_dialog_title"))
+                else
+                    self:sellObjectDialogCallback(true)
+                end
             end
         elseif self.raycastHideObject.isSplitShape then
             if MapObjectsHider.deleteSplitShapeConfirmEnabled then
@@ -313,7 +344,11 @@ end
 function MapObjectsHider:sellObjectDialogCallback(yes)
     MapObjectsHider.DebugText("sellObjectDialogCallback(%s)", yes);
     if yes and self.raycastHideObjectBackup ~= nil and self.raycastHideObjectBackup.object ~= nil then
-        g_client:getServerConnection():sendEvent(SellPlaceableEvent.new(self.raycastHideObjectBackup.object, false, true, true))
+        if self.raycastHideObjectBackup.needsToBeDeleted then
+            DeletePlacableEvent.sendEvent(self.raycastHideObjectBackup.object)
+        else
+            g_client:getServerConnection():sendEvent(SellPlaceableEvent.new(self.raycastHideObjectBackup.object, false, true, true))
+        end
     end
 end
 

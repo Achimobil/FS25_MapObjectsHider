@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="93">
     <author>Achimobil</author>
-    <version>0.0.0.2</version>
+    <version>0.0.0.3</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -19,6 +19,7 @@
     <extraSourceFiles>
         <sourceFile filename="mapObjectsHider.lua"/>
         <sourceFile filename="events/deleteSplitShapeEvent.lua" />
+        <sourceFile filename="events/deletePlacableEvent.lua" />
         <sourceFile filename="events/hideDecollideNode.lua" />
         <!-- <sourceFile filename="events/requestObjectsListEvent.lua" /> -->
         <!-- <sourceFile filename="events/sendObjectsListEvent.lua" /> -->

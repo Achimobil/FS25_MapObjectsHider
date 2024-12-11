@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <giantsDebuggerProjectUserData selectedLaunchProfile="default">
     <openFiles>
-        <file filename="D:/Achim/source/repos/FS25_MapObjectsHider/modDesc.xml" line="1" isSelected="1"/>
-        <file filename="D:/Achim/source/repos/FS25_MapObjectsHider/mapObjectsHider.lua" line="436" isSelected="0"/>
-        <file filename="D:/Achim/source/repos/FS25_MapObjectsHider/scripts/playerExtension.lua" line="12" isSelected="0"/>
-        <file filename="D:/Achim/source/repos/FS25_MapObjectsHider/translations/l10n_de.xml" line="8" isSelected="0"/>
+        <file filename="D:/Achim/source/repos/FS25_MapObjectsHider/modDesc.xml" line="21" isSelected="1"/>
+        <file filename="D:/Achim/source/repos/FS25_MapObjectsHider/mapObjectsHider.lua" line="386" isSelected="0"/>
+        <file filename="D:/Achim/source/repos/FS25_MapObjectsHider/events/objectHideRequest.lua" line="55" isSelected="0"/>
     </openFiles>
 </giantsDebuggerProjectUserData>
