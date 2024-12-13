@@ -19,7 +19,7 @@ local modName = g_currentModName
 MapObjectsHider = {}
 MapObjectsHider.SPEC_TABLE_NAME = "spec_"..modName..".moh";
 MapObjectsHider.modName = modName;
-MapObjectsHider.debug = true;
+MapObjectsHider.debug = false;
 MapObjectsHider.hideConfirmEnabled = true;
 MapObjectsHider.sellConfirmEnabled = true;
 MapObjectsHider.deleteSplitShapeConfirmEnabled = true;
@@ -61,14 +61,15 @@ function MapObjectsHider:loadMap(i3dName)
 
     self.mapNode = g_currentMission.maps[1];
     self:loadFromXML();
+
+
+    -- damit beim joinen im MP die einstellungen geholt werden senden wir ein event dass die einstellungen dann an alle schickt
+    FSBaseMission.onConnectionFinishedLoading = Utils.overwrittenFunction(FSBaseMission.onConnectionFinishedLoading, MapObjectsHider.loadSettingsFromServer)
 end
 
 --- executed per frame
 -- @param number dt
 function MapObjectsHider:update(dt)
-
-
-
 
 
     -- Ausgabe der Debug Info wenn vorhanden
@@ -383,7 +384,7 @@ end
 
 --- Hide the given object
 -- @param integer objectId
--- @param string name
+-- @param string|nil name
 -- @param string hiderPlayerName
 -- @param Boolean onlyDecollide
 function MapObjectsHider:hideObject(objectId, name, hiderPlayerName, onlyDecollide)
@@ -627,6 +628,17 @@ end
 ---@param name string
 function MapObjectsHider:printObjectLoadingError(name)
     Logging.warning("[%s] Can't find %s, something may have changed in the map hierarchy, the object will be restored.", self.modName, name)
+end
+
+
+function MapObjectsHider.loadSettingsFromServer(baseMission, superFunc, connection, x, y, z, viewDistanceCoeff)
+
+    -- beim connecten auf den Server wird dieses auf dem Server aufgerufen und wir senden die auf dem Server stehenden daten an den neuen client
+    MapObjectsHider.DebugText("loadSettingsFromServer(%s, %s, %s, %s, %s, %s, %s)", baseMission, superFunc, connection, x, y, z, viewDistanceCoeff);
+
+    superFunc(baseMission, connection, x, y, z, viewDistanceCoeff)
+
+    connection:sendEvent(LoadMapObjectsHiderDataResult.new(), false)
 end
 
 addModEventListener(MapObjectsHider);

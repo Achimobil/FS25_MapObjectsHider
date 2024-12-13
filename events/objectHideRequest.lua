@@ -54,7 +54,7 @@ end
 
 -- @param objectId integer
 function ObjectHideRequestEvent.sendToServer(objectId, onlyDecollide)
-    MapObjectsHider.print("ObjectHideRequestEvent.sendToServer(%s, %s)", objectId, onlyDecollide);
+    MapObjectsHider.DebugText("ObjectHideRequestEvent.sendToServer(%s, %s)", objectId, onlyDecollide);
     if g_server == nil then
         g_client:getServerConnection():sendEvent(ObjectHideRequestEvent.new(EntityUtility.nodeToIndex(objectId, MapObjectsHider.mapNode), onlyDecollide))
     end

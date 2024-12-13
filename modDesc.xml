@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="93">
     <author>Achimobil</author>
-    <version>0.0.0.4</version>
+    <version>0.0.0.5</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -26,7 +26,7 @@
         <!-- <sourceFile filename="events/objectShowRequestEvent.lua" /> -->
         <!-- <sourceFile filename="events/showCollideNodeEvent.lua" /> -->
         <sourceFile filename="events/objectHideRequest.lua" />
-        <!-- <sourceFile filename="events/loadMapObjectsHiderDataResult.lua" /> -->
+        <sourceFile filename="events/loadMapObjectsHiderDataResult.lua" />
         <!-- <sourceFile filename="scripts/ArrayUtility.lua" /> -->
         <sourceFile filename="scripts/playerExtension.lua" />
         <sourceFile filename="scripts/DebugUtility.lua" />
