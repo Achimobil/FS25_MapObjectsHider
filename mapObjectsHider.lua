@@ -17,7 +17,8 @@ Publication generally only by me. Distribution is only allowed with a link to th
 local modName = g_currentModName
 
 MapObjectsHider = {}
-MapObjectsHider.SPEC_TABLE_NAME = "spec_"..modName..".moh"
+MapObjectsHider.SPEC_TABLE_NAME = "spec_"..modName..".moh";
+MapObjectsHider.modName = modName;
 MapObjectsHider.debug = true;
 MapObjectsHider.hideConfirmEnabled = true;
 MapObjectsHider.sellConfirmEnabled = true;
@@ -620,6 +621,12 @@ function MapObjectsHider:loadFromXML()
             delete(xmlFile)
         end
     end
+end
+
+--- print warning in log for not loadable item, even without debug enabled
+---@param name string
+function MapObjectsHider:printObjectLoadingError(name)
+    Logging.warning("[%s] Can't find %s, something may have changed in the map hierarchy, the object will be restored.", self.modName, name)
 end
 
 addModEventListener(MapObjectsHider);
