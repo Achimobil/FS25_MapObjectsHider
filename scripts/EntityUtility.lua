@@ -167,8 +167,8 @@ function EntityUtility.getNodeHierarchyHash(node, parent, md5)
 end
 
 --- Queries node parents (return false to break the loop)
--- @param inputNode integer
--- @param func function | "function(node, name, depth) return true end"
+-- @param integer inputNode
+-- @param function func | "function(node, name, depth) return true end"
 function EntityUtility.queryNodeParents(inputNode, func)
     if not (type(inputNode) == "number") or not entityExists(inputNode) or func == nil then
         return

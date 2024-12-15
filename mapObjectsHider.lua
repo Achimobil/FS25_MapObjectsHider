@@ -19,7 +19,7 @@ local modName = g_currentModName
 MapObjectsHider = {}
 MapObjectsHider.SPEC_TABLE_NAME = "spec_"..modName..".moh";
 MapObjectsHider.modName = modName;
-MapObjectsHider.debug = false;
+MapObjectsHider.debug = true;
 MapObjectsHider.hideConfirmEnabled = true;
 MapObjectsHider.sellConfirmEnabled = true;
 MapObjectsHider.deleteSplitShapeConfirmEnabled = true;
@@ -28,6 +28,7 @@ MapObjectsHider.currentEvent2Id = nil;
 MapObjectsHider.hiddenObjects = {}
 MapObjectsHider.revision = 1
 MapObjectsHider.md5 = not MapObjectsHider.debug
+MapObjectsHider.hasFrameTriggered = false;
 
 --- Print the given Table to the log
 -- @param string text parameter Text before the table
@@ -625,12 +626,12 @@ function MapObjectsHider:loadFromXML()
 end
 
 --- print warning in log for not loadable item, even without debug enabled
----@param name string
+-- @param string name
 function MapObjectsHider:printObjectLoadingError(name)
     Logging.warning("[%s] Can't find %s, something may have changed in the map hierarchy, the object will be restored.", self.modName, name)
 end
 
-
+---override to load settings from server
 function MapObjectsHider.loadSettingsFromServer(baseMission, superFunc, connection, x, y, z, viewDistanceCoeff)
 
     -- beim connecten auf den Server wird dieses auf dem Server aufgerufen und wir senden die auf dem Server stehenden daten an den neuen client
@@ -639,6 +640,14 @@ function MapObjectsHider.loadSettingsFromServer(baseMission, superFunc, connecti
     superFunc(baseMission, connection, x, y, z, viewDistanceCoeff)
 
     connection:sendEvent(LoadMapObjectsHiderDataResult.new(), false)
+end
+
+---Open the UI to show hidden objects
+function MapObjectsHider:openGui()
+    MapObjectsHider.DebugText("openGui:()");
+    if not self.gui.target:getIsOpen() then
+        g_gui:showGui(self.gui.name)
+    end
 end
 
 addModEventListener(MapObjectsHider);

@@ -17,9 +17,6 @@ PlayerInputComponent.registerGlobalPlayerActionEvents = Utils.appendedFunction(
             g_inputBinding:setActionEventTextVisibility(eventId, true);
             MapObjectsHider.currentEventId = eventId;
 
-            local targeter = self.player.targeter
-            targeter:addTargetType(MapObjectsHider, CollisionFlag.BUILDING + CollisionFlag.TREE + CollisionFlag.STATIC_OBJECT, 0.5, 3)
-
             inputAction = InputAction.MAP_OBJECT_HIDER_DECOLLIDE;
             callbackFunc = MapObjectsHider.decollideObjectActionEvent
 
@@ -30,5 +27,13 @@ PlayerInputComponent.registerGlobalPlayerActionEvents = Utils.appendedFunction(
 
             local targeter = self.player.targeter
             targeter:addTargetType(MapObjectsHider, CollisionFlag.BUILDING + CollisionFlag.TREE + CollisionFlag.STATIC_OBJECT, 0.5, 3)
+
+            inputAction = InputAction.MAP_OBJECT_HIDER_GUI;
+            callbackFunc = MapObjectsHider.openGui
+
+            local _, guiEventId = g_inputBinding:registerActionEvent(inputAction, callbackTarget, callbackFunc, triggerUp, triggerDown, triggerAlways, startActive)
+            g_inputBinding:setActionEventText(guiEventId, g_i18n:getText("moh_MAP_OBJECT_HIDER_GUI"));
+            g_inputBinding:setActionEventTextVisibility(guiEventId, true)
+            g_inputBinding:setActionEventActive(guiEventId, true);
         end
 end)

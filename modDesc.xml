@@ -38,19 +38,19 @@
     <actions>
         <action name="MAP_OBJECT_HIDER_HIDE" category="ONFOOT" axisType="HALF"/>
         <action name="MAP_OBJECT_HIDER_DECOLLIDE" category="ONFOOT" axisType="HALF"/>
-        <!-- <action name="MAP_OBJECT_HIDER_GUI" axisType="HALF" /> -->
+        <action name="MAP_OBJECT_HIDER_GUI" category="ONFOOT" axisType="HALF" />
     </actions>
 
     <inputBinding>
         <actionBinding action="MAP_OBJECT_HIDER_HIDE" >
             <binding device="KB_MOUSE_DEFAULT" input="KEY_h" />
         </actionBinding>
-        <actionBinding action="MAP_OBJECT_HIDER_DECOLLIDE" >
-            <binding device="KB_MOUSE_DEFAULT" input="KEY_j" />
-        </actionBinding>
-        <!-- <actionBinding action="MAP_OBJECT_HIDER_GUI"> -->
-            <!-- <binding device="KB_MOUSE_DEFAULT" input="KEY_lshift KEY_h" /> -->
+        <!-- <actionBinding action="MAP_OBJECT_HIDER_DECOLLIDE" > -->
+            <!-- <binding device="KB_MOUSE_DEFAULT" input="KEY_j" /> -->
         <!-- </actionBinding> -->
+        <actionBinding action="MAP_OBJECT_HIDER_GUI">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lshift KEY_h" />
+        </actionBinding>
     </inputBinding>
 
     <l10n filenamePrefix="translations/l10n" />
