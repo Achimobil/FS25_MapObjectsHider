@@ -117,8 +117,8 @@ end
 -- @param boolean md5
 -- @return string hash hash of the node hierarchy
 function EntityUtility.getNodeHierarchyHash(node, parent, md5)
-    MapObjectsHider.DebugText("EntityUtility.getNodeHierarchyHash(%s,%s,%s)", node, parent, md5);
-    MapObjectsHider.DebugText("type(node) = %s, entityExists(node) = %s, type(parent) = %s, entityExists(parent) = %s", type(node), entityExists(node), type(parent), entityExists(parent));
+--     MapObjectsHider.DebugText("EntityUtility.getNodeHierarchyHash(%s,%s,%s)", node, parent, md5);
+--     MapObjectsHider.DebugText("type(node) = %s, entityExists(node) = %s, type(parent) = %s, entityExists(parent) = %s", type(node), entityExists(node), type(parent), entityExists(parent));
     if node == nil or not (type(node) == "number") or not entityExists(node) or parent == nil or not (type(parent) == "number") or not entityExists(parent) then
         return string.format("Invalid hash node:%s parent:%s", node, parent)
     end

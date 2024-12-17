@@ -29,11 +29,12 @@ MapObjectsHider.hiddenObjects = {}
 MapObjectsHider.revision = 1
 MapObjectsHider.md5 = not MapObjectsHider.debug
 MapObjectsHider.hasFrameTriggered = false;
+MapObjectsHider.modDirectory = g_currentModDirectory
 
 --- Print the given Table to the log
 -- @param string text parameter Text before the table
 -- @param table myTable The table to print
--- @param number maxDepth depth of print, default 2
+-- @param number|any maxDepth depth of print, default 2
 function MapObjectsHider.DebugTable(text, myTable, maxDepth)
     if not MapObjectsHider.debug then return end
     if myTable == nil then
@@ -63,6 +64,8 @@ function MapObjectsHider:loadMap(i3dName)
     self.mapNode = g_currentMission.maps[1];
     self:loadFromXML();
 
+    -- Gui laden
+    self.gui = g_gui:loadGui(self.modDirectory.."gui/mapObjectsHiderDialog.xml", "MapObjectsHiderDialog", MapObjectsHiderDialog.new())
 
     -- damit beim joinen im MP die einstellungen geholt werden senden wir ein event dass die einstellungen dann an alle schickt
     FSBaseMission.onConnectionFinishedLoading = Utils.overwrittenFunction(FSBaseMission.onConnectionFinishedLoading, MapObjectsHider.loadSettingsFromServer)
@@ -646,7 +649,7 @@ end
 function MapObjectsHider:openGui()
     MapObjectsHider.DebugText("openGui:()");
     if not self.gui.target:getIsOpen() then
-        g_gui:showGui(self.gui.name)
+        g_gui:showDialog(self.gui.name)
     end
 end
 

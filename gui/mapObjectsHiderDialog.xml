@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
+    <Bitmap profile="fs25_fullScreenBackground"/>
+    <GuiElement profile="fs25_subCategoryListContainer">
+        <GuiElement profile="fs25_statisticsHeaderBox">
+            <Text profile="fs25_statisticsHeaderName" text="Name"/>
+            <Text profile="fs25_vehiclesHeaderText" text="player" position="-860px 0px"/>
+            <Text profile="fs25_vehiclesHeaderText" text="date" position="-670px 0px"/>
+            <Text profile="fs25_vehiclesHeaderText" text="time" position="-480px 0px"/>
+            <ThreePartBitmap profile="fs25_lineSeparatorBottom" position="0px -2dp"/>
+        </GuiElement>
+        <SmoothList profile="fs25_financesList" id="mohList">
+            <ListItem profile="fs25_financesListItem">
+                <ThreePartBitmap profile="fs25_financesListItemBg" name="alternating"/>
+                <Text profile="fs25_financesListItemName" name="name"/>
+                <Text profile="fs25_financesListItemToday" name="player" position="-860px 0px"/>
+                <Text profile="fs25_financesListItemToday" name="date" position="-670px 0px"/>
+                <Text profile="fs25_financesListItemToday" name="time" position="-480px 0px"/>
+            </ListItem>
+        </SmoothList>
+    </GuiElement>
+    <BoxLayout profile="fs25_buttonBox" id="buttonsPanel">
+        <Button profile="buttonBack" onClick="onClickClose" text="$l10n_button_back"/>
+        <Button profile="buttonOK" text="$l10n_moh_gui_button_restore" onClick="onClickRestore" id="mohRestoreButton">
+            <Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
+        </Button>
+    </BoxLayout>
+</GUI>
