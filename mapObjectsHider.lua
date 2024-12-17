@@ -19,7 +19,7 @@ local modName = g_currentModName
 MapObjectsHider = {}
 MapObjectsHider.SPEC_TABLE_NAME = "spec_"..modName..".moh";
 MapObjectsHider.modName = modName;
-MapObjectsHider.debug = true;
+MapObjectsHider.debug = false;
 MapObjectsHider.hideConfirmEnabled = true;
 MapObjectsHider.sellConfirmEnabled = true;
 MapObjectsHider.deleteSplitShapeConfirmEnabled = true;
@@ -170,8 +170,8 @@ function MapObjectsHider:update(dt)
                 end
             end
             if objectFound then
-                self.lastRaycastHitObjectId = hitObjectId
-                self.lastRaycastHideObject = self.raycastHideObject
+                self.lastRaycastHitObjectId = hitObjectId;
+                self.lastRaycastHideObject = self.raycastHideObject;
 
                 -- update text of F1 menü
                 if MapObjectsHider.currentEventId ~= nil then
@@ -184,11 +184,17 @@ function MapObjectsHider:update(dt)
                     g_inputBinding:setActionEventActive(MapObjectsHider.currentEvent2Id, true);
                     g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEvent2Id, true);
                 else
-                    g_inputBinding:setActionEventActive(MapObjectsHider.currentEvent2Id, false)
+                    g_inputBinding:setActionEventActive(MapObjectsHider.currentEvent2Id, false);
                 end
+            else
+                self.lastRaycastHitObjectId = nil;
+                self.lastRaycastHideObject = nil;
             end
         end
     else
+        self.lastRaycastHitObjectId = nil;
+        self.lastRaycastHideObject = nil;
+
         -- hide and disable action when nothing is now in range
         if MapObjectsHider.currentEventId ~= nil then
             g_inputBinding:setActionEventActive(MapObjectsHider.currentEventId, false)
@@ -230,7 +236,14 @@ function MapObjectsHider:getRealHideObject(objectId)
 
     if getIsLockedGroup(getParent(parent)) then
         local rootNode = getParent(parent)
---         MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - getIsLockedGroup")
+--         MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - getIsLockedGroup grandparent")
+        return rootNode, getName(rootNode)
+    end
+
+    -- when parent is locked group, then use this
+    if getIsLockedGroup(parent) then
+        local rootNode = parent;
+--         MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - getIsLockedGroup parent")
         return rootNode, getName(rootNode)
     end
 
