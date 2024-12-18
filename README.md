@@ -5,6 +5,11 @@ Complete new rebasing it in FFS25
 # ModHub
 comming soon
 
+# Build my Mods self
+Deutsche Anleitung: https://youtu.be/qG8wNBkjB3w
+
+Englisch manual: https://youtu.be/xCjQLPn0u1A
+
 # General
 ## DE
 Alles in meinen Mods darf weder komplett noch in Teilen in eigene Mods kopiert oder in irgendeiner anderen Form weiterveröffentlicht werden, es sei denn es wird ausdrücklich erlaubt.
