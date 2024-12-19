@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
     <Bitmap profile="fs25_fullScreenBackground"/>
-    <GuiElement profile="fs25_subCategoryListContainer">
-        <GuiElement profile="fs25_statisticsHeaderBox">
-            <Text profile="fs25_statisticsHeaderName" text="Name"/>
-            <Text profile="fs25_vehiclesHeaderText" text="player" position="-860px 0px"/>
-            <Text profile="fs25_vehiclesHeaderText" text="date" position="-670px 0px"/>
-            <ThreePartBitmap profile="fs25_lineSeparatorBottom" position="0px -2dp"/>
-        </GuiElement>
-        <SmoothList profile="fs25_financesList" id="mohList">
-            <ListItem profile="fs25_financesListItem">
-                <ThreePartBitmap profile="fs25_financesListItemBg" name="alternating"/>
-                <Text profile="fs25_financesListItemName" name="name"/>
-                <Text profile="fs25_financesListItemToday" name="player" position="-860px 0px"/>
-                <Text profile="fs25_financesListItemToday" name="datetime" position="-670px 0px"/>
+    <GuiElement profile="fs25_subCategoryContainer" height="950px">
+        <Bitmap profile="fs25_subCategoryStartClipper" name="startClipper"/>
+        <Bitmap profile="fs25_subCategoryStopClipper" name="endClipper"/>
+        <!-- <GuiElement profile="fs25_statisticsHeaderBox"> -->
+            <!-- <Text profile="fs25_statisticsHeaderName" text="Name"/> -->
+            <!-- <Text profile="fs25_vehiclesHeaderText" text="player" position="-860px 0px"/> -->
+            <!-- <Text profile="fs25_vehiclesHeaderText" text="date" position="-670px 0px"/> -->
+            <!-- <ThreePartBitmap profile="fs25_lineSeparatorBottom" position="0px -2dp"/> -->
+        <!-- </GuiElement> -->
+        <SmoothList profile="fs25_subCategoryList" id="mohList" startClipperElementName="startClipper" endClipperElementName="endClipper">
+            <ListItem profile="fs25_subCategoryListItem">
+                <!-- <Bitmap profile="fs25_subCategoryListItemIcon" name="icon" imageSize="512 512"/> -->
+                <Text profile="fs25_mohListItemTitel" name="name"/>
+                <Text profile="fs25_mohListItemPlayer" name="player"/>
+                <Text profile="fs25_mohListItemTime" name="datetime"/>
             </ListItem>
         </SmoothList>
+        <ThreePartBitmap profile="fs25_subCategoryListSliderBox">
+            <Slider profile="fs25_listSlider" dataElementId="mohList"/>
+        </ThreePartBitmap>
+    </GuiElement>
+    <GuiElement profile="fs25_contractsMapBox" id="mapBox">
+        <Text profile="fs25_contractsContentTitle" text="$l10n_contract_position:" position="0px -30px"/>
+        <InGameMapPreview profile="fs25_contractsIngameMap" id="ingameMap" onDrawPostIngameMapHotspots="onDrawPostIngameMapHotspots"/>
     </GuiElement>
     <BoxLayout profile="fs25_buttonBox" id="buttonsPanel">
         <Button profile="buttonBack" onClick="onClickClose" text="$l10n_button_back"/>
@@ -23,4 +32,24 @@
             <Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
         </Button>
     </BoxLayout>
+
+
+    <GUIProfiles>
+        <Profile name="fs25_mohListItemTitel" extends="fs25_textDarkHighlight" with="anchorBottomLeft">
+            <position value="100px 60px"/>
+            <textSize value="26px"/>
+            <textVerticalAlignment value="bottom"/>
+            <textColor value="$preset_fs25_colorMainHighlight"/>
+            <textFocusedColor value="$preset_fs25_colorMainLight"/>
+            <textHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+        </Profile>
+        <Profile name="fs25_mohListItemPlayer" extends="fs25_textDarkHighlight" with="anchorBottomLeft">
+            <position value="-38px 30px"/>
+            <textAlignment value="right"/>
+        </Profile>
+        <Profile name="fs25_mohListItemTime" extends="fs25_textDarkHighlight" with="anchorBottomRight">
+            <position value="-38px 30px"/>
+            <textAlignment value="right"/>
+        </Profile>
+    </GUIProfiles>
 </GUI>
