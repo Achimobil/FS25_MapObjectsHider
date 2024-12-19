@@ -19,7 +19,7 @@ local modName = g_currentModName
 MapObjectsHider = {}
 MapObjectsHider.SPEC_TABLE_NAME = "spec_"..modName..".moh";
 MapObjectsHider.modName = modName;
-MapObjectsHider.debug = false;
+MapObjectsHider.debug = true;
 MapObjectsHider.hideConfirmEnabled = true;
 MapObjectsHider.sellConfirmEnabled = true;
 MapObjectsHider.deleteSplitShapeConfirmEnabled = true;
@@ -712,6 +712,8 @@ end
 function MapObjectsHider:openGui()
     MapObjectsHider.DebugText("openGui:()");
     if not self.gui.target:getIsOpen() then
+
+        self.gui.target:setInGameMap(g_currentMission.hud:getIngameMap());
         g_gui:showDialog(self.gui.name)
     end
 end

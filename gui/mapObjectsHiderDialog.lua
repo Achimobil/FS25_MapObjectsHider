@@ -23,6 +23,7 @@ function MapObjectsHiderDialog:onOpen()
     self.startLoadingTime = getTimeSec();
     RequestObjectsListEvent.sendToServer();
 
+    self.ingameMap:onOpen()
 --     self:toggleCustomInputContext(true, MapObjectsHiderDialog.INPUT_CONTEXT)
 --     self:registerActionEvents()--     self:registerActionEvents()
 end
@@ -79,6 +80,8 @@ function MapObjectsHiderDialog:onClose(element)
     MapObjectsHider.DebugText("MapObjectsHiderDialog:onClose()");
 
     MapObjectsHiderDialog:superClass().onClose(self)
+
+    self.ingameMap:onClose()
 --     self.controller:reset()
 
 --     self:removeActionEvents()
@@ -122,5 +125,46 @@ function MapObjectsHiderDialog:onListSelectionChanged(list, _, selectedIndex)
     if self.hiddenObjects[selectedIndex] ~= nil then
         self.currentSelectedHiddenObjectIndex = selectedIndex;
         self.currentSelectedHiddenObject = self.hiddenObjects[selectedIndex];
+
+            MapObjectsHider.DebugText("self.currentSelectedHiddenObject.id - %s", self.currentSelectedHiddenObject.id);
+            local posX, _, posY = getWorldTranslation(self.currentSelectedHiddenObject.id)
+            MapObjectsHider.DebugText("getWorldTranslation - %s, %s", posX, posY);
+            if posX ~= nil then
+--                 local posX, posY = hotspot:getWorldPosition()
+                local v84 = 650
+                local v85 = 650
+                if posX ~= nil then
+                    local v99 = posX - v84 * 0.5
+                    local v100 = posX + v84 * 0.5
+                    local v101 = posY - v85 * 0.5
+                    local v102 = posY + v85 * 0.5
+                    self.ingameMap:fitToBoundary(v99, v100, v101, v102, 0.1)
+                    self.ingameMap:setCenterToWorldPosition(posX, posY)
+                end
+            end
+
+    end
+end
+
+function MapObjectsHiderDialog:setInGameMap(map)
+    self.ingameMap:setIngameMap(map)
+    self.ingameMapBase = map
+    if map ~= nil then
+        self.customFilter = map:createCustomFilter(true)
+        self.customFilter[MapHotspot.CATEGORY_MISSION] = false
+    end
+end
+
+function MapObjectsHiderDialog:onDrawPostIngameMapHotspots()
+    MapObjectsHider.DebugText("MapObjectsHiderDialog:onDrawPostIngameMapHotspots()");
+    if self.currentSelectedHiddenObject ~= nil then
+        MapObjectsHider.DebugText("self.currentSelectedHiddenObject.id - %s", self.currentSelectedHiddenObject.id);
+        local posX, _, posY = getWorldTranslation(self.currentSelectedHiddenObject.id)
+        MapObjectsHider.DebugText("getWorldTranslation - %s, %s", posX, posY);
+        if posX ~= nil then
+            local hotspot = AbstractFieldMissionHotspot.new();
+            hotspot:setWorldPosition(posX, posY);
+            self.ingameMap:drawHotspot(hotspot, true)
+        end
     end
 end
