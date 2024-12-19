@@ -56,7 +56,7 @@ end
 --- on load the map
 --@param string i3dName i3d name
 function MapObjectsHider:loadMap(i3dName)
---     MapObjectsHider.DebugText("loadMap: %s", i3dName)
+    MapObjectsHider.DebugText("loadMap: %s", i3dName)
 
     -- speichern/laden mit dem savegame
     FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, MapObjectsHider.saveToXMLFile)
@@ -163,7 +163,7 @@ function MapObjectsHider:update(dt)
                                     actionText = g_i18n:getText("moh_DELETE"):format(self.raycastHideObject.name);
                                 end
                             else
-                                MapObjectsHider.DebugText("Placable not sellable");
+--                                 MapObjectsHider.DebugText("Placable not sellable");
                             end
                         end
                     end
@@ -212,7 +212,7 @@ end
 -- @return integer | nil id of the object
 -- @return string name of the object
 function MapObjectsHider:getRealHideObject(objectId)
---     MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject(%s)", objectId)
+    MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject(%s)", objectId)
     -- local amo = self.animatedMapObjectCollisions[objectId]
     -- if amo ~= nil then
         -- return amo.mapObjectsHider.rootNode, getName(amo.mapObjectsHider.rootNode)
@@ -236,14 +236,14 @@ function MapObjectsHider:getRealHideObject(objectId)
 
     if getIsLockedGroup(getParent(parent)) then
         local rootNode = getParent(parent)
---         MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - getIsLockedGroup grandparent")
+        MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - getIsLockedGroup grandparent")
         return rootNode, getName(rootNode)
     end
 
     -- when parent is locked group, then use this
     if getIsLockedGroup(parent) then
         local rootNode = parent;
---         MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - getIsLockedGroup parent")
+        MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - getIsLockedGroup parent")
         return rootNode, getName(rootNode)
     end
 
@@ -282,7 +282,7 @@ function MapObjectsHider:getRealHideObject(objectId)
             return true
         end
     )
---     MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - last return")
+    MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - last return")
     return id, name
 end
 
@@ -392,7 +392,7 @@ end
 --- Dialog call back
 --@param boolean yes
 function MapObjectsHider:hideObjectDialogCallback(yes)
---     MapObjectsHider.DebugText("hideObjectDialogCallback(%s)", yes);
+    MapObjectsHider.DebugText("hideObjectDialogCallback(%s)", yes);
     if yes and self.raycastHideObjectBackup ~= nil and self.raycastHideObjectBackup.id ~= nil then
         self:hideObject(self.raycastHideObjectBackup.id, nil, nil, self.onlyDecollide)
         self.raycastHideObjectBackup = nil
@@ -426,6 +426,36 @@ function MapObjectsHider:hideObject(objectId, name, hiderPlayerName, onlyDecolli
         end
     else
         ObjectHideRequestEvent.sendToServer(objectId, onlyDecollide)
+    end
+end
+
+--- Show the given object index
+-- @param integer objectIndex
+-- @return any nothing
+function MapObjectsHider:showObject(objectIndex)
+    MapObjectsHider.DebugText("showObject:(%s)", objectIndex);
+    if g_server ~= nil then
+--         local myFunction =
+        ArrayUtility.remove(
+            self.hiddenObjects,
+            -- @param hiddenObjects HideObject[]
+            -- @param index integer
+            -- @return boolean
+            function(hiddenObjects, index)
+                local hiddenObject = hiddenObjects[index]
+                if hiddenObject.index == objectIndex then
+                    -- inviare evento di ripristino
+                    self:showNode(hiddenObject.id)
+                    ShowCollideNodeEvent.sendToClients(true, hiddenObject.index)
+                    for _, col in pairs(hiddenObject.collisions) do
+                        self:collideNode(col.id, col.rigidBodyType)
+                        ShowCollideNodeEvent.sendToClients(false, col.index, col.rigidBodyType)
+                    end
+                    return true
+                end
+                return false
+            end
+        )
     end
 end
 
@@ -507,6 +537,13 @@ function MapObjectsHider:hideNode(nodeId)
     setVisibility(nodeId, false)
 end
 
+--- Show the node
+-- @param integer nodeId
+function MapObjectsHider:showNode(nodeId)
+    MapObjectsHider.DebugText("showNode:(%s)", nodeId);
+    setVisibility(nodeId, true)
+end
+
 --- remove collision from the node
 -- @param integer nodeId
 function MapObjectsHider:decollideNode(nodeId)
@@ -517,6 +554,19 @@ function MapObjectsHider:decollideNode(nodeId)
     end
 
     setRigidBodyType(nodeId, RigidBodyType.NONE)
+end
+
+--- add collision from the node
+-- @param integer nodeId
+-- @param string rigidBodyType
+function MapObjectsHider:collideNode(nodeId, rigidBodyType)
+    MapObjectsHider.DebugText("collideNode:(%s, %s)", nodeId, rigidBodyType);
+    if nodeId == nil then
+        MapObjectsHider.DebugText("Get nil on decollideNode. Prevent executing");
+        return;
+    end
+
+    setRigidBodyType(nodeId, rigidBodyType)
 end
 
 --- save the hidden list to the savegame

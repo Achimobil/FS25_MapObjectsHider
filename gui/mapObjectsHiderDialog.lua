@@ -9,6 +9,9 @@ local MapObjectsHiderDialog_mt = Class(MapObjectsHiderDialog, ScreenElement)
 function MapObjectsHiderDialog.new(target)
     local newObject = ScreenElement.new(nil, target or MapObjectsHiderDialog_mt);
 
+    newObject.startLoadingTime = 0;
+    newObject.hiddenObjects = {};
+
     return newObject;
 end
 
@@ -17,28 +20,57 @@ function MapObjectsHiderDialog:onOpen()
     MapObjectsHider.DebugText("MapObjectsHiderDialog:onOpen()");
     MapObjectsHiderDialog:superClass().onOpen(self);
 
-    self.hiddenObjects = MapObjectsHider.hiddenObjects;
-
---     self.mohList:deleteListItems();
-    self.mohList:setDataSource(self);
-    self.mohList:reloadData(true);
-    MapObjectsHider.DebugTable("self.hiddenObjects", self.hiddenObjects)
+    self.startLoadingTime = getTimeSec();
+    RequestObjectsListEvent.sendToServer();
 
 --     self:toggleCustomInputContext(true, MapObjectsHiderDialog.INPUT_CONTEXT)
 --     self:registerActionEvents()--     self:registerActionEvents()
 end
 
-function MapObjectsHiderDialog:getNumberOfItemsInSection(list, selection)
+--- called when hidden object list is received from server
+-- @param table hiddenObjects the objects to send
+function MapObjectsHiderDialog:onHiddenObjectsReceived(hiddenObjects)
+    self.hiddenObjects = hiddenObjects
+    local mapNode = MapObjectsHider.mapNode
+    local dateFormat = "%d/%m/%Y %H:%M:%S" -- change this based on locale
+    for _, ho in pairs(self.hiddenObjects) do
+        ho.id = EntityUtility.indexToNode(ho.index, mapNode)
+        ho.name = getName(ho.id)
+        ho.datetime = getDateAt(dateFormat, 2018, 11, 20, 0, 0, 0, ho.timestamp, 0)
+    end
+
+    table.sort(
+        self.hiddenObjects,
+        function(a, b)
+            return a.timestamp > b.timestamp
+        end
+    )
+
+    MapObjectsHider.DebugText("Loaded %d hidden objects in %.2f ms", #self.hiddenObjects, (getTimeSec() - self.startLoadingTime) * 1000)
+
+    self.mohList:setDataSource(self);
+    self.mohList:reloadData(true);
+end
+
+---Get the numbers of items
+-- @param table list
+-- @param any section
+-- @return integer number
+function MapObjectsHiderDialog:getNumberOfItemsInSection(list, section)
     return #self.hiddenObjects;
 end
 
+---Get the numbers of items
+-- @param table list
+-- @param any section
+-- @param integer index
+-- @param any cell
 function MapObjectsHiderDialog:populateCellForItemInSection(list, section, index, cell)
     local currentHiddenObject = self.hiddenObjects[index]
 
     cell:getAttribute("name"):setText(currentHiddenObject.name)
     cell:getAttribute("player"):setText(currentHiddenObject.player)
-    cell:getAttribute("date"):setText(currentHiddenObject.date)
-    cell:getAttribute("time"):setText(currentHiddenObject.time)
+    cell:getAttribute("datetime"):setText(currentHiddenObject.datetime)
 end
 
 ---Callback on close
@@ -62,22 +94,15 @@ function MapObjectsHiderDialog:onClickClose(element)
 end
 
 ---Callback on click on restore button
--- @return boolean is the event unused?
 function MapObjectsHiderDialog:onClickRestore()
     MapObjectsHider.DebugText("MapObjectsHiderDialog:onClickRestore()");
---     local eventUnused = MapObjectsHiderDialog:superClass().onClickCancel(self);
---     local selectedElement, selectedIndex = self.mohList:getSelectedElement()
---     if selectedElement ~= nil then
---         self:hideLastHiddenObject()
---         local selectedHiddenObject = self.hiddenObjects[selectedIndex]
---         ArrayUtility.removeAt(self.hiddenObjects, selectedIndex)
---         ObjectShowRequestEvent.sendToServer(selectedHiddenObject.index)
---         self.mohList:removeElement(selectedElement)
---         self.mohList:updateItemPositions()
---         self.mohList:setSelectedIndex(selectedIndex, true)
---         eventUnused = false
---     end
---     return eventUnused
+
+    if self.currentSelectedHiddenObject ~= nil then
+        ObjectShowRequestEvent.sendToServer(self.currentSelectedHiddenObject.index);
+
+        self.startLoadingTime = getTimeSec();
+        RequestObjectsListEvent.sendToServer();
+    end
 end
 
 function MapObjectsHiderDialog:registerActionEvents()
@@ -86,5 +111,16 @@ end
 
 ---Remove non-GUI input action events.
 function MapObjectsHiderDialog:removeActionEvents()
-    g_inputBinding:removeActionEventsByTarget(self)
+--     g_inputBinding:removeActionEventsByTarget(self)
+end
+
+--- called when selection in a dialog list is changed
+-- @param table list
+-- @param integer selectedIndex
+function MapObjectsHiderDialog:onListSelectionChanged(list, _, selectedIndex)
+    MapObjectsHider.DebugText("MapObjectsHiderDialog:onListSelectionChanged(%s, _, %s)", list, selectedIndex);
+    if self.hiddenObjects[selectedIndex] ~= nil then
+        self.currentSelectedHiddenObjectIndex = selectedIndex;
+        self.currentSelectedHiddenObject = self.hiddenObjects[selectedIndex];
+    end
 end

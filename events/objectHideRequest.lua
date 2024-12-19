@@ -31,14 +31,16 @@ function ObjectHideRequestEvent.new(objectIndex, onlyDecollide)
     return o
 end
 
--- @param streamId integer
+---send event
+-- @param integer streamId
 function ObjectHideRequestEvent:writeStream(streamId, _)
     streamWriteString(streamId, self.objectIndex)
     streamWriteBool(streamId, self.onlyDecollide)
 end
 
--- @param streamId integer
--- @param connection Connection
+---receive event
+-- @param integer streamId
+-- @param Connection connection
 function ObjectHideRequestEvent:readStream(streamId, connection)
     self.objectIndex = streamReadString(streamId)
     self.onlyDecollide = streamReadBool(streamId)
@@ -52,7 +54,9 @@ function ObjectHideRequestEvent:run(connection)
     end
 end
 
--- @param objectId integer
+---Send the request to the server
+-- @param integer objectId
+-- @param boolean onlyDecollide
 function ObjectHideRequestEvent.sendToServer(objectId, onlyDecollide)
     MapObjectsHider.DebugText("ObjectHideRequestEvent.sendToServer(%s, %s)", objectId, onlyDecollide);
     if g_server == nil then

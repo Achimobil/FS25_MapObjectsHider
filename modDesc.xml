@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="94">
     <author>Achimobil</author>
-    <version>0.0.0.6</version>
+    <version>0.0.0.7</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -21,14 +21,14 @@
         <sourceFile filename="events/deleteSplitShapeEvent.lua" />
         <sourceFile filename="events/deletePlacableEvent.lua" />
         <sourceFile filename="events/hideDecollideNode.lua" />
-        <!-- <sourceFile filename="events/requestObjectsListEvent.lua" /> -->
-        <!-- <sourceFile filename="events/sendObjectsListEvent.lua" /> -->
-        <!-- <sourceFile filename="events/objectShowRequestEvent.lua" /> -->
-        <!-- <sourceFile filename="events/showCollideNodeEvent.lua" /> -->
+        <sourceFile filename="events/requestObjectsListEvent.lua" />
+        <sourceFile filename="events/sendObjectsListEvent.lua" />
+        <sourceFile filename="events/objectShowRequestEvent.lua" />
+        <sourceFile filename="events/showCollideNodeEvent.lua" />
         <sourceFile filename="events/objectHideRequest.lua" />
         <sourceFile filename="events/loadMapObjectsHiderDataResult.lua" />
         <sourceFile filename="gui/mapObjectsHiderDialog.lua" />
-        <!-- <sourceFile filename="scripts/ArrayUtility.lua" /> -->
+        <sourceFile filename="scripts/ArrayUtility.lua" />
         <sourceFile filename="scripts/playerExtension.lua" />
         <sourceFile filename="scripts/DebugUtility.lua" />
         <sourceFile filename="scripts/EntityUtility.lua" />
