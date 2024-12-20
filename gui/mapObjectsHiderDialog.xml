@@ -22,9 +22,13 @@
             <Slider profile="fs25_listSlider" dataElementId="mohList"/>
         </ThreePartBitmap>
     </GuiElement>
-    <GuiElement profile="fs25_contractsMapBox" id="mapBox">
-        <Text profile="fs25_contractsContentTitle" text="$l10n_contract_position:" position="0px -30px"/>
-        <InGameMapPreview profile="fs25_contractsIngameMap" id="ingameMap" onDrawPostIngameMapHotspots="onDrawPostIngameMapHotspots"/>
+    <GuiElement profile="fs25_mohMapBox" id="mapBox">
+        <Text profile="fs25_contractsContentTitle" text="$l10n_contract_position:" position="0px -10px"/>
+        <InGameMapPreview profile="fs25_mohIngameMap" id="ingameMap" onDrawPostIngameMapHotspots="onDrawPostIngameMapHotspots"/>
+    </GuiElement>
+    <GuiElement profile="fs25_mohCamBox" id="camBox">
+        <Text profile="fs25_contractsContentTitle" text="$l10n_moh_camview:" position="0px -60px"/>
+        <Camera profile="fs25_mohCamera" id="mohCamera"/>
     </GuiElement>
     <BoxLayout profile="fs25_buttonBox" id="buttonsPanel">
         <Button profile="buttonBack" onClick="onClickClose" text="$l10n_button_back"/>
@@ -50,6 +54,22 @@
         <Profile name="fs25_mohListItemTime" extends="fs25_textDarkHighlight" with="anchorBottomRight">
             <position value="-38px 30px"/>
             <textAlignment value="right"/>
+        </Profile>
+        <Profile name="fs25_mohMapBox" extends="emptyPanel" with="anchorStretchingYLeft">
+            <size value="40% 950px"/>
+            <position value="450px 0px"/>
+        </Profile>
+        <Profile name="fs25_mohIngameMap" extends="baseReference" with="anchorMiddleCenter">
+            <size value="100% 900px"/>
+            <position value="0px -20px"/>
+        </Profile>
+        <Profile name="fs25_mohCamBox" extends="emptyPanel" with="anchorTopRight">
+            <size value="40% 900px"/>
+            <position value="-200px 0px"/>
+        </Profile>
+        <Profile name="fs25_mohCamera" extends="emptyPanel" with="anchorTopRight">
+            <size value="400px 400px"/>
+            <position value="0px -70px"/>
         </Profile>
     </GUIProfiles>
 </GUI>

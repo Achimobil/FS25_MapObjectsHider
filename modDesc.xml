@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="94">
     <author>Achimobil</author>
-    <version>0.0.0.7</version>
+    <version>0.0.0.8</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -28,6 +28,7 @@
         <sourceFile filename="events/objectHideRequest.lua" />
         <sourceFile filename="events/loadMapObjectsHiderDataResult.lua" />
         <sourceFile filename="gui/mapObjectsHiderDialog.lua" />
+        <sourceFile filename="gui/elements/cameraElement.lua" />
         <sourceFile filename="scripts/ArrayUtility.lua" />
         <sourceFile filename="scripts/playerExtension.lua" />
         <sourceFile filename="scripts/DebugUtility.lua" />

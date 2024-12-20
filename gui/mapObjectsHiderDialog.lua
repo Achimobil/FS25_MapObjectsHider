@@ -1,7 +1,7 @@
 MapObjectsHiderDialog = {};
-MapObjectsHiderDialog.INPUT_CONTEXT = "MapObjectsHiderDialog"
+MapObjectsHiderDialog.INPUT_CONTEXT = "MapObjectsHiderDialog";
 
-local MapObjectsHiderDialog_mt = Class(MapObjectsHiderDialog, ScreenElement)
+local MapObjectsHiderDialog_mt = Class(MapObjectsHiderDialog, ScreenElement);
 
 --- create new object
 -- @param table target
@@ -11,9 +11,11 @@ function MapObjectsHiderDialog.new(target)
 
     newObject.startLoadingTime = 0;
     newObject.hiddenObjects = {};
+    newObject.materialsBackup = {};
 
     return newObject;
 end
+
 
 ---Callback on open
 function MapObjectsHiderDialog:onOpen()
@@ -24,6 +26,12 @@ function MapObjectsHiderDialog:onOpen()
     RequestObjectsListEvent.sendToServer();
 
     self.ingameMap:onOpen()
+
+    self.cameraId = createCamera("mohCam", math.rad(60), 0.1, 10000);
+--     self.mohCamera:createOverlay(self.cameraId);
+    self:loadCamera()
+
+
 --     self:toggleCustomInputContext(true, MapObjectsHiderDialog.INPUT_CONTEXT)
 --     self:registerActionEvents()--     self:registerActionEvents()
 end
@@ -88,6 +96,26 @@ function MapObjectsHiderDialog:onClose(element)
 --     self:toggleCustomInputContext(false, MapObjectsHiderDialog.INPUT_CONTEXT)
 end
 
+function MapObjectsHiderDialog:loadCamera()
+    local tY = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, 0, 0, 0)
+    self.originCameraPos = {0, tY + 1250, 0}
+    self.originCameraRot = {math.rad(-90), 0, 0}
+    self:resetCamera()
+end
+
+function MapObjectsHiderDialog:resetCamera()
+--     if self.cameraId ~= nil then
+--         setWorldTranslation(self.cameraId, unpack(self.originCameraPos))
+--         setRotation(self.cameraId, unpack(self.originCameraRot))
+--     end
+end
+
+function MapObjectsHiderDialog:sendCameraTo(objectId, zoom)
+--     local x, y, z = getWorldTranslation(objectId)
+--     setWorldTranslation(self.cameraId, x, y + (4 * zoom), z + (4 * zoom))
+--     setRotation(self.cameraId, math.rad(-40), 0, 0)
+end
+
 ---Callback on close
 -- @param table element
 function MapObjectsHiderDialog:onClickClose(element)
@@ -126,24 +154,49 @@ function MapObjectsHiderDialog:onListSelectionChanged(list, _, selectedIndex)
         self.currentSelectedHiddenObjectIndex = selectedIndex;
         self.currentSelectedHiddenObject = self.hiddenObjects[selectedIndex];
 
-            MapObjectsHider.DebugText("self.currentSelectedHiddenObject.id - %s", self.currentSelectedHiddenObject.id);
-            local posX, _, posY = getWorldTranslation(self.currentSelectedHiddenObject.id)
-            MapObjectsHider.DebugText("getWorldTranslation - %s, %s", posX, posY);
+        MapObjectsHider.DebugText("self.currentSelectedHiddenObject.id - %s", self.currentSelectedHiddenObject.id);
+        local posX, _, posY = getWorldTranslation(self.currentSelectedHiddenObject.id)
+        MapObjectsHider.DebugText("getWorldTranslation - %s, %s", posX, posY);
+        if posX ~= nil then
+            local v84 = 650
+            local v85 = 650
             if posX ~= nil then
---                 local posX, posY = hotspot:getWorldPosition()
-                local v84 = 650
-                local v85 = 650
-                if posX ~= nil then
-                    local v99 = posX - v84 * 0.5
-                    local v100 = posX + v84 * 0.5
-                    local v101 = posY - v85 * 0.5
-                    local v102 = posY + v85 * 0.5
-                    self.ingameMap:fitToBoundary(v99, v100, v101, v102, 0.1)
-                    self.ingameMap:setCenterToWorldPosition(posX, posY)
+                local v99 = posX - v84 * 0.5
+                local v100 = posX + v84 * 0.5
+                local v101 = posY - v85 * 0.5
+                local v102 = posY + v85 * 0.5
+                self.ingameMap:fitToBoundary(v99, v100, v101, v102, 0.1)
+                self.ingameMap:setCenterToWorldPosition(posX, posY)
+            end
+        end
+
+        self:sendCameraTo(self.currentSelectedHiddenObject.id, self:showHiddenObject(self.currentSelectedHiddenObject))
+    else
+        self:resetCamera();
+    end
+end
+
+---@param hiddenObject HiddenObject
+---@return integer
+function MapObjectsHiderDialog:showHiddenObject(hiddenObject)
+    local bestRadius = -1
+    EntityUtility.queryNodeHierarchy(
+        hiddenObject.id,
+        ---@param node integer
+        function(node)
+            if getHasClassId(node, ClassIds.SHAPE) then
+                self.materialsBackup[node] = getMaterial(node, 0)
+                -- setMaterial(node, Placeable.GLOW_MATERIAL, 0)
+                local _, _, _, radius = getShapeBoundingSphere(node)
+                if radius > bestRadius then
+                    bestRadius = radius
                 end
             end
-
-    end
+        end
+    )
+    setVisibility(hiddenObject.id, true)
+    self.lastSelectedHiddenObject = hiddenObject
+    return bestRadius
 end
 
 function MapObjectsHiderDialog:setInGameMap(map)
@@ -156,11 +209,11 @@ function MapObjectsHiderDialog:setInGameMap(map)
 end
 
 function MapObjectsHiderDialog:onDrawPostIngameMapHotspots()
-    MapObjectsHider.DebugText("MapObjectsHiderDialog:onDrawPostIngameMapHotspots()");
+--     MapObjectsHider.DebugText("MapObjectsHiderDialog:onDrawPostIngameMapHotspots()");
     if self.currentSelectedHiddenObject ~= nil then
-        MapObjectsHider.DebugText("self.currentSelectedHiddenObject.id - %s", self.currentSelectedHiddenObject.id);
+--         MapObjectsHider.DebugText("self.currentSelectedHiddenObject.id - %s", self.currentSelectedHiddenObject.id);
         local posX, _, posY = getWorldTranslation(self.currentSelectedHiddenObject.id)
-        MapObjectsHider.DebugText("getWorldTranslation - %s, %s", posX, posY);
+--         MapObjectsHider.DebugText("getWorldTranslation - %s, %s", posX, posY);
         if posX ~= nil then
             local hotspot = AbstractFieldMissionHotspot.new();
             hotspot:setWorldPosition(posX, posY);
