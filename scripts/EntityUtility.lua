@@ -1,17 +1,15 @@
 --[[
 --DE--
-Teil des Map Object Hider für den LS22 von Achimobil aufgebaut auf den Skripten von Royal Modding aus dem LS 19.
+Teil des Map Object Hider für den LS22/LS25 von Achimobil aufgebaut auf den Skripten von Royal Modding aus dem LS 19.
 Kopieren und wiederverwenden ob ganz oder in Teilen ist untersagt.
 
 --EN--
-Part of the Map Object Hider for the LS22 by Achimobil based on the scripts by Royal Modding from the LS 19.
+Part of the Map Object Hider for the FS22/FS25 by Achimobil based on the scripts by Royal Modding from the LS 19.
 Copying and reusing in whole or in part is prohibited.
 
-Skript version 0.2.0.0 of 01.01.2023
+Skript version 0.3.0.0 of 21.12.2024
 ]]
 
-
--- @class EntityUtility
 EntityUtility = EntityUtility or {}
 
 --- Get the class id and name of an onject
@@ -67,8 +65,8 @@ function EntityUtility.nodeToIndex(nodeId, rootId)
 end
 
 --- Get a node id by an index
--- @param nodeIndex string index of node
--- @param rootId integer id of root node
+-- @param integer nodeIndex id of node
+-- @param integer rootId id of root node
 -- @return integer nodeId id of node
 function EntityUtility.indexToNode(nodeIndex, rootId)
     if nodeIndex == nil or rootId == nil or not entityExists(rootId) then
@@ -92,7 +90,7 @@ function EntityUtility.indexToNode(nodeIndex, rootId)
 end
 
 --- Queries a node hierarchy
--- @param inputNode integer
+-- @param integer inputNode id of node
 -- @param func fun(node: integer, name: string, depth: integer)
 function EntityUtility.queryNodeHierarchy(inputNode, func)
     if not (type(inputNode) == "number") or not entityExists(inputNode) or func == nil then

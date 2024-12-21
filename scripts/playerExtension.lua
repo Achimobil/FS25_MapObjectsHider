@@ -1,4 +1,14 @@
--- MapObjectsHider.DebugTable("PlayerInputComponent", PlayerInputComponent)
+--[[
+--DE--
+Teil des Map Object Hider für den LS22/LS25 von Achimobil aufgebaut auf den Skripten von Royal Modding aus dem LS 19.
+Kopieren und wiederverwenden ob ganz oder in Teilen ist untersagt.
+
+--EN--
+Part of the Map Object Hider for the FS22/FS25 by Achimobil based on the scripts by Royal Modding from the LS 19.
+Copying and reusing in whole or in part is prohibited.
+
+Skript version 0.3.0.0 of 21.12.2024
+]]
 
 PlayerInputComponent.registerGlobalPlayerActionEvents = Utils.appendedFunction(
     PlayerInputComponent.registerGlobalPlayerActionEvents,

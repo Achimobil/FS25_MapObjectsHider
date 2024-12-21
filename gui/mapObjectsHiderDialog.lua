@@ -1,3 +1,15 @@
+--[[
+--DE--
+Teil des Map Object Hider für den LS22/LS25 von Achimobil aufgebaut auf den Skripten von Royal Modding aus dem LS 19.
+Kopieren und wiederverwenden ob ganz oder in Teilen ist untersagt.
+
+--EN--
+Part of the Map Object Hider for the FS22/FS25 by Achimobil based on the scripts by Royal Modding from the LS 19.
+Copying and reusing in whole or in part is prohibited.
+
+Skript version 0.3.0.0 of 21.12.2024
+]]
+
 MapObjectsHiderDialog = {};
 MapObjectsHiderDialog.INPUT_CONTEXT = "MapObjectsHiderDialog";
 
@@ -22,18 +34,14 @@ function MapObjectsHiderDialog:onOpen()
     MapObjectsHider.DebugText("MapObjectsHiderDialog:onOpen()");
     MapObjectsHiderDialog:superClass().onOpen(self);
 
-    self.startLoadingTime = getTimeSec();
-    RequestObjectsListEvent.sendToServer();
-
     self.ingameMap:onOpen()
 
     self.cameraId = createCamera("mohCam", math.rad(60), 0.1, 10000);
---     self.mohCamera:createOverlay(self.cameraId);
+    self.mohCamera:createOverlay(self.cameraId, MapObjectsHider.mapNode);
     self:loadCamera()
 
-
---     self:toggleCustomInputContext(true, MapObjectsHiderDialog.INPUT_CONTEXT)
---     self:registerActionEvents()--     self:registerActionEvents()
+    self.startLoadingTime = getTimeSec();
+    RequestObjectsListEvent.sendToServer();
 end
 
 --- called when hidden object list is received from server
@@ -87,15 +95,14 @@ end
 function MapObjectsHiderDialog:onClose(element)
     MapObjectsHider.DebugText("MapObjectsHiderDialog:onClose()");
 
+    self:hideLastHiddenObject()
+    self.hiddenObjects = {}
     MapObjectsHiderDialog:superClass().onClose(self)
 
     self.ingameMap:onClose()
---     self.controller:reset()
-
---     self:removeActionEvents()
---     self:toggleCustomInputContext(false, MapObjectsHiderDialog.INPUT_CONTEXT)
 end
 
+--- load the cam
 function MapObjectsHiderDialog:loadCamera()
     local tY = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, 0, 0, 0)
     self.originCameraPos = {0, tY + 1250, 0}
@@ -103,17 +110,23 @@ function MapObjectsHiderDialog:loadCamera()
     self:resetCamera()
 end
 
+--- reset the cam to original position
 function MapObjectsHiderDialog:resetCamera()
---     if self.cameraId ~= nil then
---         setWorldTranslation(self.cameraId, unpack(self.originCameraPos))
---         setRotation(self.cameraId, unpack(self.originCameraRot))
---     end
+    if self.cameraId ~= nil then
+        setWorldTranslation(self.cameraId, unpack(self.originCameraPos))
+        setRotation(self.cameraId, unpack(self.originCameraRot))
+    end
+    self.mohCamera:setRenderDirty();
 end
 
+--- move the cam to the given object
+-- @param integer objectId
+-- @param float zoom
 function MapObjectsHiderDialog:sendCameraTo(objectId, zoom)
---     local x, y, z = getWorldTranslation(objectId)
---     setWorldTranslation(self.cameraId, x, y + (4 * zoom), z + (4 * zoom))
---     setRotation(self.cameraId, math.rad(-40), 0, 0)
+    local x, y, z = getWorldTranslation(objectId)
+    setWorldTranslation(self.cameraId, x, y + (4 * zoom), z + (4 * zoom))
+    setRotation(self.cameraId, math.rad(-40), 0, 0)
+    self.mohCamera:setRenderDirty();
 end
 
 ---Callback on close
@@ -134,15 +147,6 @@ function MapObjectsHiderDialog:onClickRestore()
         self.startLoadingTime = getTimeSec();
         RequestObjectsListEvent.sendToServer();
     end
-end
-
-function MapObjectsHiderDialog:registerActionEvents()
---     g_inputBinding:registerActionEvent(InputAction.AXIS_MTO_SCROLL, self, self.onInputScrollMTO, false, false, true, true)
-end
-
----Remove non-GUI input action events.
-function MapObjectsHiderDialog:removeActionEvents()
---     g_inputBinding:removeActionEventsByTarget(self)
 end
 
 --- called when selection in a dialog list is changed
@@ -176,13 +180,13 @@ function MapObjectsHiderDialog:onListSelectionChanged(list, _, selectedIndex)
     end
 end
 
----@param hiddenObject HiddenObject
----@return integer
+--- Show the hidden object for the cam and calulate best radius for view
+-- @param table hiddenObject
+-- @return integer bestRadius
 function MapObjectsHiderDialog:showHiddenObject(hiddenObject)
     local bestRadius = -1
     EntityUtility.queryNodeHierarchy(
         hiddenObject.id,
-        ---@param node integer
         function(node)
             if getHasClassId(node, ClassIds.SHAPE) then
                 self.materialsBackup[node] = getMaterial(node, 0)
@@ -199,6 +203,28 @@ function MapObjectsHiderDialog:showHiddenObject(hiddenObject)
     return bestRadius
 end
 
+---hide the last shown object again
+function MapObjectsHiderDialog:hideLastHiddenObject()
+    if self.lastSelectedHiddenObject ~= nil then
+
+        if not self.lastSelectedHiddenObject.onlyDecollide then
+            setVisibility(self.lastSelectedHiddenObject.id, false)
+        end
+        EntityUtility.queryNodeHierarchy(
+            self.lastSelectedHiddenObject.id,
+            function(node)
+                if getHasClassId(node, ClassIds.SHAPE) then
+                    setMaterial(node, self.materialsBackup[node], 0)
+                end
+            end
+        )
+        self.materialsBackup = {}
+        self.lastSelectedHiddenObject = nil
+    end
+end
+
+---Set the IngameMap reference to use for display.
+-- @param table map
 function MapObjectsHiderDialog:setInGameMap(map)
     self.ingameMap:setIngameMap(map)
     self.ingameMapBase = map
@@ -208,6 +234,7 @@ function MapObjectsHiderDialog:setInGameMap(map)
     end
 end
 
+---Callback from ui element
 function MapObjectsHiderDialog:onDrawPostIngameMapHotspots()
 --     MapObjectsHider.DebugText("MapObjectsHiderDialog:onDrawPostIngameMapHotspots()");
     if self.currentSelectedHiddenObject ~= nil then

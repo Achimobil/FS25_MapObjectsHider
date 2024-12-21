@@ -1,13 +1,13 @@
 --[[
 --DE--
-Teil des Map Object Hider für den LS22 von Achimobil aufgebaut auf den Skripten von Royal Modding aus dem LS 19.
+Teil des Map Object Hider für den LS22/LS25 von Achimobil aufgebaut auf den Skripten von Royal Modding aus dem LS 19.
 Kopieren und wiederverwenden ob ganz oder in Teilen ist untersagt.
 
 --EN--
-Part of the Map Object Hider for the LS22 by Achimobil based on the scripts by Royal Modding from the LS 19.
+Part of the Map Object Hider for the FS22/FS25 by Achimobil based on the scripts by Royal Modding from the LS 19.
 Copying and reusing in whole or in part is prohibited.
 
-Skript version 0.2.0.0 of 01.01.2023
+Skript version 0.3.0.0 of 21.12.2024
 ]]
 
 ObjectHideRequestEvent = {}
@@ -15,15 +15,18 @@ local ObjectHideRequestEvent_mt = Class(ObjectHideRequestEvent, Event)
 
 InitEventClass(ObjectHideRequestEvent, "ObjectHideRequestEvent")
 
--- @return table
+---Create instance of Event class
+-- @return table self instance of class event
 function ObjectHideRequestEvent.emptyNew()
     local o = Event.new(ObjectHideRequestEvent_mt)
     o.className = "ObjectHideRequestEvent"
     return o
 end
 
--- @param objectIndex string
--- @return table
+---Create new instance of event
+-- @param integer objectIndex
+-- @param boolean onlyDecollide
+-- @return table self instance of class event
 function ObjectHideRequestEvent.new(objectIndex, onlyDecollide)
     local o = ObjectHideRequestEvent.emptyNew()
     o.objectIndex = objectIndex
@@ -47,7 +50,8 @@ function ObjectHideRequestEvent:readStream(streamId, connection)
     self:run(connection)
 end
 
--- @param connection Connection
+---run event
+-- @param Connection connection
 function ObjectHideRequestEvent:run(connection)
     if g_server ~= nil then
         MapObjectsHider:hideObject(EntityUtility.indexToNode(self.objectIndex, MapObjectsHider.mapNode), nil, g_currentMission.userManager:getUserByConnection(connection):getNickname(), self.onlyDecollide)

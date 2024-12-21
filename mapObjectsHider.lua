@@ -1,17 +1,13 @@
 --[[
 --DE--
-Map Object Hider für den LS25
-Basierend auf den Prinzipien und Skripten des gleichnahmigen Mods von Royal Modding aus dem LS 19
-
-Da das meiste hier von mir umgeschrieben und angepasst ist, ist das verändern und wiederveröffentlichen auch in Teilen untersagt.
-Veröffentlichung generell nur durch mich. Verbreitung nur mit verlinkung auf original Veröffentlicungen gestattet
+Teil des Map Object Hider für den LS22/LS25 von Achimobil aufgebaut auf den Skripten von Royal Modding aus dem LS 19.
+Kopieren und wiederverwenden ob ganz oder in Teilen ist untersagt.
 
 --EN--
-Map Object Hider for the LS25
-Based on the principles and scripts of the same mod by Royal Modding from LS 19.
+Part of the Map Object Hider for the FS22/FS25 by Achimobil based on the scripts by Royal Modding from the LS 19.
+Copying and reusing in whole or in part is prohibited.
 
-Since most of the content is rewritten and adapted by me, it is forbidden to change or republish parts of it.
-Publication generally only by me. Distribution is only allowed with a link to the original publication.
+Skript version 0.3.0.0 of 21.12.2024
 ]]
 
 local modName = g_currentModName
@@ -19,7 +15,7 @@ local modName = g_currentModName
 MapObjectsHider = {}
 MapObjectsHider.SPEC_TABLE_NAME = "spec_"..modName..".moh";
 MapObjectsHider.modName = modName;
-MapObjectsHider.debug = true;
+MapObjectsHider.debug = false;
 MapObjectsHider.hideConfirmEnabled = true;
 MapObjectsHider.sellConfirmEnabled = true;
 MapObjectsHider.deleteSplitShapeConfirmEnabled = true;
@@ -78,11 +74,11 @@ function MapObjectsHider:update(dt)
 
     -- Ausgabe der Debug Info wenn vorhanden
     if MapObjectsHider.debug and self.debugInfo ~= nil then
-        DebugUtility.renderTable(0.05, 0.98, 0.009, self.debugInfo, 4, false);
+        DebugUtility.renderTable(0.05, 0.98, 0.010, self.debugInfo, 4, false);
     end
 
     if MapObjectsHider.debug and self.hideObjectDebugInfo ~= nil then
-        DebugUtility.renderTable(0.35, 0.98, 0.009, self.hideObjectDebugInfo, 4, false);
+        DebugUtility.renderTable(0.35, 0.98, 0.010, self.hideObjectDebugInfo, 4, false);
         self.hideObjectDebugInfo = nil;
     end
 
@@ -698,10 +694,17 @@ function MapObjectsHider:printObjectLoadingError(name)
 end
 
 ---override to load settings from server
+-- @param any baseMission
+-- @param function superFunc superFunc
+-- @param table connection connection
+-- @param float x x position
+-- @param float y y position
+-- @param float z z position
+-- @param float viewDistanceCoeff coeff
 function MapObjectsHider.loadSettingsFromServer(baseMission, superFunc, connection, x, y, z, viewDistanceCoeff)
+--     MapObjectsHider.DebugText("loadSettingsFromServer(%s, %s, %s, %s, %s, %s, %s)", baseMission, superFunc, connection, x, y, z, viewDistanceCoeff);
 
     -- beim connecten auf den Server wird dieses auf dem Server aufgerufen und wir senden die auf dem Server stehenden daten an den neuen client
-    MapObjectsHider.DebugText("loadSettingsFromServer(%s, %s, %s, %s, %s, %s, %s)", baseMission, superFunc, connection, x, y, z, viewDistanceCoeff);
 
     superFunc(baseMission, connection, x, y, z, viewDistanceCoeff)
 

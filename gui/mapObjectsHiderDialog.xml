@@ -4,15 +4,8 @@
     <GuiElement profile="fs25_subCategoryContainer" height="950px">
         <Bitmap profile="fs25_subCategoryStartClipper" name="startClipper"/>
         <Bitmap profile="fs25_subCategoryStopClipper" name="endClipper"/>
-        <!-- <GuiElement profile="fs25_statisticsHeaderBox"> -->
-            <!-- <Text profile="fs25_statisticsHeaderName" text="Name"/> -->
-            <!-- <Text profile="fs25_vehiclesHeaderText" text="player" position="-860px 0px"/> -->
-            <!-- <Text profile="fs25_vehiclesHeaderText" text="date" position="-670px 0px"/> -->
-            <!-- <ThreePartBitmap profile="fs25_lineSeparatorBottom" position="0px -2dp"/> -->
-        <!-- </GuiElement> -->
         <SmoothList profile="fs25_subCategoryList" id="mohList" startClipperElementName="startClipper" endClipperElementName="endClipper">
             <ListItem profile="fs25_subCategoryListItem">
-                <!-- <Bitmap profile="fs25_subCategoryListItemIcon" name="icon" imageSize="512 512"/> -->
                 <Text profile="fs25_mohListItemTitel" name="name"/>
                 <Text profile="fs25_mohListItemPlayer" name="player"/>
                 <Text profile="fs25_mohListItemTime" name="datetime"/>
@@ -27,7 +20,7 @@
         <InGameMapPreview profile="fs25_mohIngameMap" id="ingameMap" onDrawPostIngameMapHotspots="onDrawPostIngameMapHotspots"/>
     </GuiElement>
     <GuiElement profile="fs25_mohCamBox" id="camBox">
-        <Text profile="fs25_contractsContentTitle" text="$l10n_moh_camview:" position="0px -60px"/>
+        <Text profile="fs25_contractsContentTitle" text="$l10n_moh_camview:" position="0px -10px"/>
         <Camera profile="fs25_mohCamera" id="mohCamera"/>
     </GuiElement>
     <BoxLayout profile="fs25_buttonBox" id="buttonsPanel">
@@ -63,13 +56,13 @@
             <size value="100% 900px"/>
             <position value="0px -20px"/>
         </Profile>
-        <Profile name="fs25_mohCamBox" extends="emptyPanel" with="anchorTopRight">
-            <size value="40% 900px"/>
-            <position value="-200px 0px"/>
+        <Profile name="fs25_mohCamBox" extends="emptyPanel" with="anchorStretchingYRight">
+            <size value="40% 950px"/>
+            <position value="-30px 0px"/>
         </Profile>
-        <Profile name="fs25_mohCamera" extends="emptyPanel" with="anchorTopRight">
-            <size value="400px 400px"/>
-            <position value="0px -70px"/>
+        <Profile name="fs25_mohCamera" extends="baseReference" with="anchorMiddleCenter">
+            <size value="100% 900px"/>
+            <position value="0px -20px"/>
         </Profile>
     </GUIProfiles>
 </GUI>

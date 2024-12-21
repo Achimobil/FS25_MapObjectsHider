@@ -1,30 +1,38 @@
 --[[
 --DE--
-Teil des Map Object Hider für den LS22 von Achimobil aufgebaut auf den Skripten von Royal Modding aus dem LS 19.
+Teil des Map Object Hider für den LS22/LS25 von Achimobil aufgebaut auf den Skripten von Royal Modding aus dem LS 19.
 Kopieren und wiederverwenden ob ganz oder in Teilen ist untersagt.
 
 --EN--
-Part of the Map Object Hider for the LS22 by Achimobil based on the scripts by Royal Modding from the LS 19.
+Part of the Map Object Hider for the FS22/FS25 by Achimobil based on the scripts by Royal Modding from the LS 19.
 Copying and reusing in whole or in part is prohibited.
 
-Skript version 0.2.0.0 of 01.01.2023
+Skript version 0.3.0.0 of 21.12.2024
 ]]
 
 LoadMapObjectsHiderDataResult = {}
 LoadMapObjectsHiderDataResult_mt = Class(LoadMapObjectsHiderDataResult, Event)
 InitEventClass(LoadMapObjectsHiderDataResult, "LoadMapObjectsHiderDataResult")
 
+---Create instance of Event class
+-- @return table self instance of class event
 function LoadMapObjectsHiderDataResult.emptyNew()
     local self = Event.new(LoadMapObjectsHiderDataResult_mt)
     return self
 end
 
+
+---Create new instance of event
+-- @return table self instance of class event
 function LoadMapObjectsHiderDataResult.new()
     MapObjectsHider.DebugText("LoadMapObjectsHiderDataResult.new");
     local self = LoadMapObjectsHiderDataResult.emptyNew()
     return self
 end
 
+---send event
+-- @param integer streamId
+-- @param Connection connection
 function LoadMapObjectsHiderDataResult:writeStream(streamId, connection)
     MapObjectsHider.DebugText("LoadMapObjectsHiderDataResult:writeStream");
 
@@ -52,6 +60,9 @@ function LoadMapObjectsHiderDataResult:writeStream(streamId, connection)
     end
 end
 
+---receive event
+-- @param integer streamId
+-- @param Connection connection
 function LoadMapObjectsHiderDataResult:readStream(streamId, connection)
     MapObjectsHider.DebugText("LoadMapObjectsHiderDataResult:readStream");
 
@@ -77,6 +88,8 @@ function LoadMapObjectsHiderDataResult:readStream(streamId, connection)
     self:run(connection)
 end
 
+---run event
+-- @param Connection connection
 function LoadMapObjectsHiderDataResult:run(connection)
     MapObjectsHider.DebugText("LoadMapObjectsHiderDataResult:run");
 end

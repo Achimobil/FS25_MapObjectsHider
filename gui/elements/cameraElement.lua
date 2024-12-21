@@ -1,12 +1,15 @@
---- Map Objects Hider
+--[[
+--DE--
+Teil des Map Object Hider für den LS22/LS25 von Achimobil aufgebaut auf den Skripten von Royal Modding aus dem LS 19.
+Kopieren und wiederverwenden ob ganz oder in Teilen ist untersagt.
 
----@author Duke of Modding
----@version 1.2.0.0
----@date 09/04/2021
+--EN--
+Part of the Map Object Hider for the FS22/FS25 by Achimobil based on the scripts by Royal Modding from the LS 19.
+Copying and reusing in whole or in part is prohibited.
 
----@class CameraElement : Class
----@field addCallback function
----@field raiseCallback function
+Skript version 0.3.0.0 of 21.12.2024
+]]
+
 CameraElement = {}
 local CameraElement_mt = Class(CameraElement, GuiElement);
 Gui.registerGuiElement("Camera", CameraElement)
@@ -20,11 +23,17 @@ function CameraElement.new(target, custom_mt)
 
     -- overlay attributes
     self.cameraId = nil;
-    self.isRenderDirty = false;
-    self.overlay = 0;
+    self.overlay = nil;
+    self.useAlpha = true;
     self.superSamplingFactor = 1;
     self.shapesMask = 255;
-    self.lightsMask = 16711680;
+    self.lightMask = 67108864;
+    self.renderShadows = false
+    self.bloomQuality = 0
+    self.enableDof = false
+    self.ssaoQuality = 0
+    self.asyncShaderCompilation = false
+    self.isRenderDirty = false;
 
     return self
 end
@@ -44,8 +53,6 @@ function CameraElement:loadFromXML(xmlFile, key)
     self.superSamplingFactor = getXMLInt(xmlFile, key .. "#superSamplingFactor") or self.superSamplingFactor
     self.shapesMask = getXMLInt(xmlFile, key .. "#shapesMask") or self.shapesMask
     self.lightsMask = getXMLInt(xmlFile, key .. "#lightsMask") or self.lightsMask
-
-    self:addCallback(xmlFile, key .. "#onCameraLoad", "onCameraLoadCallback")
 end
 
 --- load profile data
@@ -57,10 +64,6 @@ function CameraElement:loadProfile(profile, applyProfile)
     self.superSamplingFactor = profile:getNumber("superSamplingFactor", self.superSamplingFactor)
     self.shapesMask = profile:getNumber("shapesMask", self.shapesMask)
     self.lightsMask = profile:getNumber("lightsMask", self.lightsMask)
-
-    if applyProfile then
-        self:setScene(self.filename)
-    end
 end
 
 ---Copy the attributes to other element
@@ -73,9 +76,12 @@ function CameraElement:copyAttributes(src)
     self.lightsMask = src.lightsMask
 end
 
----@param cameraNode integer
-function CameraElement:createOverlay(cameraNode)
-    self.cameraId = cameraNode
+---Create the overlay with given cam
+-- @param integer cameraNodeId
+-- @param integer sceneNodeId
+function CameraElement:createOverlay(cameraNodeId, sceneNodeId)
+    self.cameraId = cameraNodeId;
+    self.scene = sceneNodeId;
 
     if self.overlay ~= nil then
         delete(self.overlay)
@@ -89,10 +95,10 @@ function CameraElement:createOverlay(cameraNode)
 
     local aspectRatio = resolutionX / resolutionY
 
-    local overlay = createRenderOverlay(self.cameraId, aspectRatio, resolutionX, resolutionY, true, self.shapesMask, self.lightsMask)
+--     local overlay = createRenderOverlay(self.cameraId, aspectRatio, resolutionX, resolutionY, true, self.shapesMask, self.lightsMask)
 --     self.overlay = createRenderOverlay(self.cameraId, aspectRatio, resolutionX, resolutionY, true, self.shapesMask, self.lightsMask)
---     local overlay = createRenderOverlay(self.scene, self.cameraId, aspectRatio, resolutionX, resolutionY, self.useAlpha, self.shapesMask, self.lightMask, self.renderShadows, self.bloomQuality, self.enableDof, self.ssaoQuality, self.asyncShaderCompilation)
-
+    local overlay = createRenderOverlay(self.scene, self.cameraId, aspectRatio, resolutionX, resolutionY, self.useAlpha, self.shapesMask, self.lightMask, self.renderShadows, self.bloomQuality, self.enableDof, self.ssaoQuality, self.asyncShaderCompilation)
+    MapObjectsHider.DebugText("CameraElement overlay - %s", overlay);
     if overlay == 0 then
         Logging.error("Could not create render overlay for scene '%s'", self.filename)
         return
@@ -100,15 +106,14 @@ function CameraElement:createOverlay(cameraNode)
 
     self.overlay = overlay
 
-    self.isRenderDirty = true
-
-    self:raiseCallback("onCameraLoadCallback", self.cameraId, self.overlay)
+    self.isRenderDirty = true;
 end
 
+---Destroy the overlay
 function CameraElement:destroyOverlay()
-    if self.overlay ~= 0 then
-        delete(self.overlay)
-        self.overlay = 0
+    if self.overlay ~= nil then
+        delete(self.overlay);
+        self.overlay = nil;
     end
 end
 
@@ -117,7 +122,7 @@ end
 function CameraElement:update(dt)
     CameraElement:superClass().update(self, dt)
 
-    if self.isRenderDirty and self.overlay ~= 0 then
+    if self.isRenderDirty and self.overlay ~= nil then
         updateRenderOverlay(self.overlay)
         self.isRenderDirty = false
     end
@@ -129,7 +134,9 @@ end
 -- @param float? clipX2 [0..1]
 -- @param float? clipY2 [0..1]
 function CameraElement:draw(clipX1, clipY1, clipX2, clipY2)
-    if self.overlay ~= 0 then
+    if self.overlay ~= nil then
+        local u1, v1, u2, v2, u3, v3, u4, v4 = 0, 0, 0, 1, 1, 0, 1, 1;
+        setOverlayUVs(self.overlay, u1, v1, u2, v2, u3, v3, u4, v4);
         renderOverlay(self.overlay, self.absPosition[1], self.absPosition[2], self.size[1], self.size[2]);
     end
     CameraElement:superClass().draw(self, clipX1, clipY1, clipX2, clipY2);
