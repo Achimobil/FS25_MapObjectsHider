@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+	<texts>
+		<text name="input_MAP_OBJECT_HIDER_HIDE"		text="Ukryj obiekt"/>
+		<text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Usuń tylko kolizję"/>
+		<text name="input_MAP_OBJECT_HIDER_GUI"			text="Otwórz panel Map Objects Hider"/>
+		<text name="moh_MAP_OBJECT_HIDER_GUI"			text="Pokaż listę ukrytych obiektów"/>
+		<text name="moh_HIDE"							text="Ukryj (%s)"/>
+		<text name="moh_DECOLLIDE"						text="Usuń kolizję (%s)"/>
+		<text name="moh_SELL"							text="Sprzedaj (%s)"/>
+		<text name="moh_DELETE"							text="Usuń (%s)"/>
+		<text name="moh_dialog_title"					text="Map Objects Hider"/>
+		<text name="moh_dialog_text"					text="Jesteś pewien, że chcesz ukryć %s?"/>
+		<text name="moh_delete_split_shape_dialog_text"	text="Na pewno chcesz usunąć to drzewo?"/>
+		<text name="moh_sell_dialog_text"				text="ANa pewno chcesz sprzedać %s?" />
+		<text name="moh_gui_title"						text="Ukryte obiekty" />
+		<text name="moh_gui_loading_text"				text="Ładowanie ukrytych obiektów..." />
+		<text name="moh_gui_no_objects_text"			text="Nie ukryto jeszcze żadnych obiektów" />
+		<text name="moh_gui_button_restore"				text="Przywróć" />
+	</texts>
+</l10n>
