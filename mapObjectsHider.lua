@@ -15,7 +15,7 @@ local modName = g_currentModName
 MapObjectsHider = {}
 MapObjectsHider.SPEC_TABLE_NAME = "spec_"..modName..".moh";
 MapObjectsHider.modName = modName;
-MapObjectsHider.debug = false;
+MapObjectsHider.debug = true;
 MapObjectsHider.hideConfirmEnabled = true;
 MapObjectsHider.sellConfirmEnabled = true;
 MapObjectsHider.deleteSplitShapeConfirmEnabled = true;
@@ -116,7 +116,7 @@ function MapObjectsHider:update(dt)
 --                     MapObjectsHider.DebugText("g_currentMission:getNodeObject(%s)", hitObjectId)
                     local object = {}
                     object.id, object.name = MapObjectsHider:getRealHideObject(hitObjectId)
-                    if object.id ~= nil then
+                    if object.id ~= nil and EntityUtility.nodeToIndex(object.id, self.mapNode) ~= "" then
                         self.raycastHideObject = object
                         if MapObjectsHider.debug then
                             -- debug hide object
@@ -214,9 +214,12 @@ function MapObjectsHider:getRealHideObject(objectId)
         -- return amo.mapObjectsHider.rootNode, getName(amo.mapObjectsHider.rootNode)
     -- end
 
+    -- lockedgroups als grandpa should be used
+    local parent = getParent(objectId);
+
     -- try to intercept big sized objects with LOD such as houses
-    if getName(getParent(objectId)) == "LOD0" or getName(getParent(objectId)) == "LOD1" then
-        local rootNode = getParent(getParent(objectId))
+    if getName(parent) == "LOD0" or getName(parent) == "LOD1" then
+        local rootNode = getParent(parent)
         MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - found LOD0/1 as parent")
         return rootNode, getName(rootNode)
     end
@@ -226,9 +229,6 @@ function MapObjectsHider:getRealHideObject(objectId)
         MapObjectsHider.DebugText("MapObjectsHider:getRealHideObject - found LOD0/1 as itself")
         return rootNode, getName(rootNode)
     end
-
-    -- lockedgroups als grandpa should be used
-    local parent = getParent(objectId)
 
     if getIsLockedGroup(getParent(parent)) then
         local rootNode = getParent(parent)
