@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="94">
     <author>Achimobil</author>
-    <version>0.0.1.4</version>
+    <version>1.0.0.0</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -24,7 +24,7 @@ Verkaufte oder gelöschte Objekte können nicht wieder zurückgesetzt werden.
 
 Aber Vorsicht!
 - Nicht alle Objekttypen und auch nicht alle Objekte können entfernt werden. (z.B. Parkende Autos können nicht entfernt werden, da diese nicht erkannt werden können).
-- Wenn sich die Hierarchie der Objekte auf der Karte verändern (z.B. durch Änderungen im GIANTS Editor), können einige Objekte wieder auftauchen und müssen erneut entfernt werden.
+- Wenn sich die Hierarchie der Objekte auf der Karte ändert (z.B. durch Änderungen im GIANTS Editor), können einige Objekte wieder auftauchen und müssen erneut entfernt werden.
 - Wenn eine Mod-Map nicht korrekt aufgebaut ist, kann das Entfernen einiger Bäume das oben genannte Problem verursachen.
 - Wenn Gebäude in der Map nicht korrekt definiert sind, so kann dies zu lustigen Effekten führen.
 - Es ist möglich Mapränder auszublenden. Hierdurch kann man dann ins Bodenlose fallen. Sollte man nicht machen.]]></de>
