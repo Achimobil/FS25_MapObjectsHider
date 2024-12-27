@@ -10,7 +10,42 @@
     </title>
 
     <description>
-        <de><![CDATA[comming later]]></de>
+        <de><![CDATA[Wenn der Mapper andere Pläne hatte als du, hör auf in der Map direkt Anpassungen zu machen und blende im Spiel aus, was dich stört.
+
+Dieser Mod ist auf Basis des LS22 Mods gemacht und in Teilen neu aufgebaut worden für den LS25.
+
+Map Objekte wie Gebäude, Leitplanken, Zäune und vieles mehr können ausgeblendet werden.
+Nur ausgeblendete Objekte können nachher über den Dialog zurückgeholt werden.
+Dies wird im Savegame gespeichert damit es dauerhaft ausgeblendet bleibt, solange die Map sich nicht verändert.
+
+Platzierbare Gebäude werden verkauft oder gelöscht und nicht ausgeblendet. Hierzu muss man die Berechtigung haben diese zu verkaufen oder zu löschen.
+Bäume werden generell gelöscht und nicht ausgeblendet.
+Verkaufte oder gelöschte Objekte können nicht wieder zurückgesetzt werden.
+
+Aber Vorsicht!
+- Nicht alle Objekttypen und auch nicht alle Objekte können entfernt werden. (z.B. Parkende Autos können nicht entfernt werden, da diese nicht erkannt werden können).
+- Wenn sich die Hierarchie der Objekte auf der Karte verändern (z.B. durch Änderungen im GIANTS Editor), können einige Objekte wieder auftauchen und müssen erneut entfernt werden.
+- Wenn eine Mod-Map nicht korrekt aufgebaut ist, kann das Entfernen einiger Bäume das oben genannte Problem verursachen.
+- Wenn Gebäude in der Map nicht korrekt definiert sind, so kann dies zu lustigen Effekten führen.
+- Es ist möglich Mapränder auszublenden. Hierdurch kann man dann ins Bodenlose fallen. Sollte man nicht machen.]]></de>
+        <en><![CDATA[If the mapper had different plans than you, stop making adjustments directly in the map and hide what bothers you in the game.
+
+This mod is based on the LS22 mod and has been partially rebuilt for the LS25.
+
+Map objects such as buildings, crash barriers, fences and much more can be hidden.
+Only hidden objects can be retrieved afterwards via the dialogue.
+This is saved in the savegame so that it remains permanently hidden as long as the map does not change.
+
+Placeable buildings are sold or deleted and not hidden. You must have the authorisation to sell or delete them.
+Trees are generally deleted and not hidden.
+Sold or deleted objects cannot be reset.
+
+But be careful!
+- Not all object types and not all objects can be removed. (e.g. parked cars cannot be removed as they cannot be recognised).
+- If the hierarchy of objects on the map changes (e.g. due to changes in the GIANTS Editor), some objects may reappear and have to be removed again.
+- If a mod map is not set up correctly, removing some trees can cause the above problem.
+- If buildings are not defined correctly in the map, this can lead to funny effects.
+- It is possible to hide map edges. This can cause you to fall into a bottomless pit. You should not do this.]]></en>
     </description>
 
     <multiplayer supported="true"/>
