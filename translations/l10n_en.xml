@@ -17,5 +17,6 @@
 		<text name="moh_gui_loading_text"				text="Loading hidden objects..." />
 		<text name="moh_gui_no_objects_text"			text="No objects have been hidden yet" />
 		<text name="moh_gui_button_restore"				text="Restore" />
+        <text name="moh_camview"                        text="Camera" />
 	</texts>
 </l10n>

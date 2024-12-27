@@ -18,5 +18,6 @@
         <text name="moh_gui_loading_text"               text="Versteckte Objekte laden..." />
         <text name="moh_gui_no_objects_text"            text="Bisher wurden keine Objekte ausgeblendet" />
         <text name="moh_gui_button_restore"             text="Wiederherstellen" />
+        <text name="moh_camview"                        text="Kamera" />
     </texts>
 </l10n>

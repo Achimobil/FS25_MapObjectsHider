@@ -18,5 +18,6 @@
 		<text name="moh_gui_loading_text"				text="Загрузка скрытых объектов…" />
 		<text name="moh_gui_no_objects_text"			text="Нет скрытых объектов" />
 		<text name="moh_gui_button_restore"				text="Восстановить" />
+        <text name="moh_camview"                        text="Camera" />
 	</texts>
 </l10n>

@@ -17,5 +17,6 @@
 		<text name="moh_gui_loading_text"				text="Ładowanie ukrytych obiektów..." />
 		<text name="moh_gui_no_objects_text"			text="Nie ukryto jeszcze żadnych obiektów" />
 		<text name="moh_gui_button_restore"				text="Przywróć" />
+        <text name="moh_camview"                        text="Camera" />
 	</texts>
 </l10n>

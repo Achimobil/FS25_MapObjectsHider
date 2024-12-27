@@ -17,5 +17,6 @@
 		<text name="moh_gui_loading_text"				text="Načítání skrytých objektů..."/>
 		<text name="moh_gui_no_objects_text"			text="Dosud nebyly skryty žádné objekty"/>
 		<text name="moh_gui_button_restore"				text="Obnovit"/>
+        <text name="moh_camview"                        text="Camera" />
 	</texts>
 </l10n>
