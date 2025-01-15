@@ -7,6 +7,7 @@
         <de>Map Objekt Hider</de>
         <en>Map Objects Hider</en>
         <cz>Skrývání Objektů Na Mapě</cz>
+		<it>Nascondi oggetti della mappa</it>
     </title>
 
     <description>
@@ -46,6 +47,23 @@ But be careful!
 - If a mod map is not set up correctly, removing some trees can cause the above problem.
 - If buildings are not defined correctly in the map, this can lead to funny effects.
 - It is possible to hide map edges. This can cause you to fall into a bottomless pit. You should not do this.]]></en>
+        <it><![CDATA[Se il mappatore aveva piani diversi dai tuoi, smetti di apportare modifiche direttamente sulla mappa e nascondi ciò che ti disturba nel gioco.
+
+Questa mod è basata sulla mod LS22 ed è stata parzialmente ricostruita per LS25.
+
+Gli oggetti della mappa come edifici, barriere di sicurezza, recinti e molto altro possono essere nascosti.
+Solo gli oggetti nascosti possono essere recuperati in seguito tramite il dialogo.
+Questo viene salvato nel salvataggio in modo che rimanga nascosto in modo permanente finché la mappa non cambia.
+
+Gli edifici posizionabili vengono venduti o eliminati e non nascosti. Devi avere l'autorizzazione per venderli o eliminarli.
+Gli alberi vengono generalmente eliminati e non nascosti.
+Gli oggetti venduti o eliminati non possono essere ripristinati.
+
+Ma fai attenzione!
+- Non tutti i tipi di oggetti e non tutti gli oggetti possono essere rimossi. (ad esempio, le auto parcheggiate non possono essere rimosse perché non possono essere riconosciute).
+- Se la gerarchia degli oggetti sulla mappa cambia (ad esempio a causa di modifiche nell'editor GIANTS), alcuni oggetti potrebbero riapparire e dover essere rimossi di nuovo. - Se una mappa mod non è impostata correttamente, la rimozione di alcuni alberi può causare il problema di cui sopra.
+- Se gli edifici non sono definiti correttamente nella mappa, questo può portare a effetti divertenti.
+- È possibile nascondere i bordi della mappa. Questo può farti cadere in un pozzo senza fondo. Non dovresti farlo.]]></it>
     </description>
 
     <multiplayer supported="true"/>
