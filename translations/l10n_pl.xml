@@ -12,11 +12,11 @@
 		<text name="moh_dialog_title"					text="Map Objects Hider"/>
 		<text name="moh_dialog_text"					text="Jesteś pewien, że chcesz ukryć %s?"/>
 		<text name="moh_delete_split_shape_dialog_text"	text="Na pewno chcesz usunąć to drzewo?"/>
-		<text name="moh_sell_dialog_text"				text="ANa pewno chcesz sprzedać %s?" />
+		<text name="moh_sell_dialog_text"				text="Na pewno chcesz sprzedać %s?" />
 		<text name="moh_gui_title"						text="Ukryte obiekty" />
 		<text name="moh_gui_loading_text"				text="Ładowanie ukrytych obiektów..." />
 		<text name="moh_gui_no_objects_text"			text="Nie ukryto jeszcze żadnych obiektów" />
 		<text name="moh_gui_button_restore"				text="Przywróć" />
-        <text name="moh_camview"                        text="Camera" />
+        <text name="moh_camview"                        text="Kamera" />
 	</texts>
 </l10n>
