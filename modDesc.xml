@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="94">
     <author>Achimobil</author>
-    <version>0.0.1.6</version>
+    <version>0.0.1.7</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -28,7 +28,9 @@ Aber Vorsicht!
 - Wenn sich die Hierarchie der Objekte auf der Karte verändern (z.B. durch Änderungen im GIANTS Editor), können einige Objekte wieder auftauchen und müssen erneut entfernt werden.
 - Wenn eine Mod-Map nicht korrekt aufgebaut ist, kann das Entfernen einiger Bäume das oben genannte Problem verursachen.
 - Wenn Gebäude in der Map nicht korrekt definiert sind, so kann dies zu lustigen Effekten führen.
-- Es ist möglich Mapränder auszublenden. Hierdurch kann man dann ins Bodenlose fallen. Sollte man nicht machen.]]></de>
+- Es ist möglich Mapränder auszublenden. Hierdurch kann man dann ins Bodenlose fallen. Sollte man nicht machen.
+
+0.0.1.7 - UK Übersetzungen von Kalderone]]></de>
         <en><![CDATA[If the mapper had different plans than you, stop making adjustments directly in the map and hide what bothers you in the game.
 
 This mod is based on the LS22 mod and has been partially rebuilt for the LS25.

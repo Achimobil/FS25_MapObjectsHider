@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <translationContributors>Kalderone</translationContributors>
+	<texts>
+		<text name="input_MAP_OBJECT_HIDER_HIDE"		text="Приховати об'єкт"/>
+		<text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Видалити лише колізію"/>
+		<text name="input_MAP_OBJECT_HIDER_GUI"			text="Відкрити панель прихованих об'єкти"/>
+		<text name="moh_MAP_OBJECT_HIDER_GUI"			text="Показати список прихованих об'єктів"/>
+		<text name="moh_HIDE"							text="Приховати (%s)"/>
+		<text name="moh_DECOLLIDE"						text="Видалити колізію (%s)"/>
+		<text name="moh_SELL"							text="Продати (%s)"/>
+		<text name="moh_DELETE"							text="Видалити (%s)"/>
+		<text name="moh_dialog_title"					text="Приховувати об'єкти на мапі"/>
+		<text name="moh_dialog_text"					text="Ви впевнені, що хочете приховати %s?"/>
+		<text name="moh_delete_split_shape_dialog_text"	text="Ви дійсно хочете видалити це дерево?"/>
+		<text name="moh_sell_dialog_text"				text="Ви впевнені, що хочете продати %s?" />
+		<text name="moh_gui_title"						text="Приховані об'єкти" />
+		<text name="moh_gui_loading_text"				text="Завантаження прихованих об'єктів..." />
+		<text name="moh_gui_no_objects_text"			text="Жоднен об'єкт ще не приховано" />
+		<text name="moh_gui_button_restore"				text="Відновити" />
+        <text name="moh_camview"                        text="Камера" />		
+	</texts>
+</l10n>
