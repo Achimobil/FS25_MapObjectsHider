@@ -6,8 +6,6 @@ Kopieren und wiederverwenden ob ganz oder in Teilen ist untersagt.
 --EN--
 Part of the Map Object Hider for the FS22/FS25 by Achimobil based on the scripts by Royal Modding from the LS 19.
 Copying and reusing in whole or in part is prohibited.
-
-Skript version 0.3.0.0 of 21.12.2024
 ]]
 
 local modName = g_currentModName
@@ -49,6 +47,17 @@ function MapObjectsHider.DebugText(text, ...)
     Logging.info("MapObjectsHiderDebug: " .. string.format(text, ...));
 end
 
+---Print the text to the log as info. Example: BigDisplaySpecialization.info("Alter: %s", age)
+-- @param string infoMessage the text to print formated
+-- @param any ... format parameter
+function MapObjectsHider.info(infoMessage, ...)
+    if MapObjectsHider.Debug then
+        MapObjectsHider.DebugText("Info:" .. infoMessage, ...)
+    else
+        Logging.info(MapObjectsHider.modName .. " - " .. infoMessage, ...);
+    end
+end
+
 --- on load the map
 --@param string i3dName i3d name
 function MapObjectsHider:loadMap(i3dName)
@@ -82,12 +91,9 @@ function MapObjectsHider:update(dt)
         self.hideObjectDebugInfo = nil;
     end
 
-
-
-
     -- raycast aus dem neuen 25er targeter abgerufen
     local hitObjectId = g_localPlayer.targeter:getClosestTargetedNodeFromType(MapObjectsHider);
-    if hitObjectId ~= nil then
+    if hitObjectId ~= nil and entityExists(hitObjectId) then
 --         MapObjectsHider.DebugText("getHasClassId(%s, ClassIds.SHAPE) = %s", hitObjectId, getHasClassId(hitObjectId, ClassIds.SHAPE))
         if getHasClassId(hitObjectId, ClassIds.SHAPE) then
             if hitObjectId == self.lastRaycastHitObjectId and not MapObjectsHider.debug then
@@ -530,13 +536,21 @@ end
 --- Hide the node
 -- @param integer nodeId
 function MapObjectsHider:hideNode(nodeId)
+    if nodeId == nil then
+        MapObjectsHider.info("node id null, not hiding node");
+        return;
+    end
+
     setVisibility(nodeId, false)
 end
 
 --- Show the node
 -- @param integer nodeId
 function MapObjectsHider:showNode(nodeId)
-    MapObjectsHider.DebugText("showNode:(%s)", nodeId);
+    if nodeId == nil then
+        MapObjectsHider.info("node id null, not showing node");
+        return;
+    end
     setVisibility(nodeId, true)
 end
 
@@ -714,6 +728,11 @@ end
 ---Open the UI to show hidden objects
 function MapObjectsHider:openGui()
     MapObjectsHider.DebugText("openGui:()");
+
+    if self.gui == nil then
+        MapObjectsHider.info("UI not loaded and could not be opened");
+        return;
+    end
     if not self.gui.target:getIsOpen() then
 
         self.gui.target:setInGameMap(g_currentMission.hud:getIngameMap());

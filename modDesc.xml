@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="94">
+<modDesc descVersion="95">
     <author>Achimobil</author>
-    <version>1.0.0.1</version>
+    <version>1.0.0.2</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -30,7 +30,8 @@ Aber Vorsicht!
 - Wenn Gebäude in der Map nicht korrekt definiert sind, so kann dies zu lustigen Effekten führen.
 - Es ist möglich Mapränder auszublenden. Hierdurch kann man dann ins Bodenlose fallen. Sollte man nicht machen.
 
-0.0.1.7 - UK Übersetzungen von Kalderone]]></de>
+0.0.1.7 - UK Übersetzungen von Kalderone
+1.0.0.2 - Fix some reported null reference lua errors]]></de>
         <en><![CDATA[If the mapper had different plans than you, stop making adjustments directly in the map and hide what bothers you in the game.
 
 This mod is based on the LS22 mod and has been partially rebuilt for the LS25.

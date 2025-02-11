@@ -51,9 +51,13 @@ function MapObjectsHiderDialog:onHiddenObjectsReceived(hiddenObjects)
     local mapNode = MapObjectsHider.mapNode
     local dateFormat = "%d/%m/%Y %H:%M:%S" -- change this based on locale
     for _, ho in pairs(self.hiddenObjects) do
-        ho.id = EntityUtility.indexToNode(ho.index, mapNode)
-        ho.name = getName(ho.id)
-        ho.datetime = getDateAt(dateFormat, 2018, 11, 20, 0, 0, 0, ho.timestamp, 0)
+        ho.id = EntityUtility.indexToNode(ho.index, mapNode);
+        if ho.id == nil then
+            ho.name = "Unnamed";
+        else
+            ho.name = getName(ho.id);
+        end
+        ho.datetime = getDateAt(dateFormat, 2018, 11, 20, 0, 0, 0, ho.timestamp, 0);
     end
 
     table.sort(
