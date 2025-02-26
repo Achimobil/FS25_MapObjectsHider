@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="95">
+<modDesc descVersion="96">
     <author>Achimobil</author>
     <version>1.0.0.2</version>
 
@@ -30,8 +30,15 @@ Aber Vorsicht!
 - Wenn Gebäude in der Map nicht korrekt definiert sind, so kann dies zu lustigen Effekten führen.
 - Es ist möglich Mapränder auszublenden. Hierdurch kann man dann ins Bodenlose fallen. Sollte man nicht machen.
 
-0.0.1.7 - UK Übersetzungen von Kalderone
-1.0.0.2 - Fix some reported null reference lua errors]]></de>
+Upload auf anderen Seiten außer dem ModHub ist verboten und somit illegal, Verlinkung nur mit Original-Downloadlink. KEIN Ersatzlink!
+Das Verändern oder erneutes Hochladen, ob ganz oder in Teilen, ist nicht gestattet!
+
+Fehler und Anregungen gerne auf <a href="https://github.com/Achimobil/FS25_MapObjectsHide">GitHub</a>.
+
+Changelog 1.1.0.0
+- UK Übersetzungen eingefügt
+- Einige null reference lua fehler, die gemeldet wurden, gefixed
+]]></de>
         <en><![CDATA[If the mapper had different plans than you, stop making adjustments directly in the map and hide what bothers you in the game.
 
 This mod is based on the LS22 mod and has been partially rebuilt for the LS25.
@@ -49,7 +56,17 @@ But be careful!
 - If the hierarchy of objects on the map changes (e.g. due to changes in the GIANTS Editor), some objects may reappear and have to be removed again.
 - If a mod map is not set up correctly, removing some trees can cause the above problem.
 - If buildings are not defined correctly in the map, this can lead to funny effects.
-- It is possible to hide map edges. This can cause you to fall into a bottomless pit. You should not do this.]]></en>
+- It is possible to hide map edges. This can cause you to fall into a bottomless pit. You should not do this.
+
+Uploading to sites other than ModHub is prohibited and therefore illegal, linking only with original download link. NO substitute link!
+Modifying and re-uploading in whole or in part is not allowed!
+
+Bugs and suggestions welcome on <a href="https://github.com/Achimobil/FS25_MapObjectsHide">GitHub</a>.
+
+Changelog 1.1.0.0
+- UK Translations added
+- Fix some reported null reference lua errors
+]]></en>
     </description>
 
     <multiplayer supported="true"/>
