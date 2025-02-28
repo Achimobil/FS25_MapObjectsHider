@@ -10,7 +10,8 @@
         <text name="moh_SELL"							text="Prodat (%s)"/>
         <text name="moh_DELETE"							text="Vymazat (%s)"/>
         <text name="moh_dialog_title"					text="Map Objects Hider"/>
-        <text name="moh_dialog_text"					text="Opravdu chcete skrýt? %s?"/>
+        <text name="moh_ask_hide"					    text="Opravdu chcete skrýt? %s?"/>
+        <text name="moh_ask_decollide"                  text="Are you sure you want to decollide %s?"/>
         <text name="moh_delete_split_shape_dialog_text"	text="Opravdu chcete odstranit tento strom?"/>
         <text name="moh_delete_dialog_text"             text="do you really want to delete %s?"/>
         <text name="moh_sell_dialog_text"				text="Jste si jisti, že chcete prodat? %s?"/>

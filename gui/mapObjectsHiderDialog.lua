@@ -16,10 +16,10 @@ MapObjectsHiderDialog.INPUT_CONTEXT = "MapObjectsHiderDialog";
 local MapObjectsHiderDialog_mt = Class(MapObjectsHiderDialog, ScreenElement);
 
 --- create new object
--- @param table target
--- @return table object
-function MapObjectsHiderDialog.new(target)
-    local newObject = ScreenElement.new(nil, target or MapObjectsHiderDialog_mt);
+-- @param table|any customMt
+-- @return MapObjectsHiderDialog object
+function MapObjectsHiderDialog.new(customMt)
+    local newObject = ScreenElement.new(nil, customMt or MapObjectsHiderDialog_mt);
 
     newObject.startLoadingTime = 0;
     newObject.hiddenObjects = {};

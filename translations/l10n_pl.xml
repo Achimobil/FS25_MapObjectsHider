@@ -10,7 +10,8 @@
         <text name="moh_SELL"							text="Sprzedaj (%s)"/>
         <text name="moh_DELETE"							text="Usuń (%s)"/>
         <text name="moh_dialog_title"					text="Map Objects Hider"/>
-        <text name="moh_dialog_text"					text="Jesteś pewien, że chcesz ukryć %s?"/>
+        <text name="moh_ask_hide"					    text="Jesteś pewien, że chcesz ukryć %s?"/>
+        <text name="moh_ask_decollide"                  text="Are you sure you want to decollide %s?"/>
         <text name="moh_delete_split_shape_dialog_text"	text="Na pewno chcesz usunąć to drzewo?"/>
         <text name="moh_delete_dialog_text"             text="do you really want to delete %s?"/>
         <text name="moh_sell_dialog_text"				text="Na pewno chcesz sprzedać %s?" />

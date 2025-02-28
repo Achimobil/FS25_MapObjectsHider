@@ -11,7 +11,8 @@
         <text name="moh_SELL"							text="Продать (%s)"/>
         <text name="moh_DELETE"							text="Удалить (%s)"/>
         <text name="moh_dialog_title"					text="Скрытие объектов на карте"/>
-        <text name="moh_dialog_text"					text="Вы уверены, что хотите скрыть %s?"/>
+        <text name="moh_ask_hide"					    text="Вы уверены, что хотите скрыть %s?"/>
+        <text name="moh_ask_decollide"                  text="Are you sure you want to decollide %s?"/>
         <text name="moh_delete_split_shape_dialog_text"	text="Вы уверены, что хотите удалить это дерево?"/>
         <text name="moh_delete_dialog_text"             text="do you really want to delete %s?"/>
         <text name="moh_sell_dialog_text"				text="Вы уверены, что хотите продать %s?" />

@@ -361,7 +361,12 @@ function MapObjectsHider:baseObjectActionEvent(onlyDecollide)
             -- check if object to hide is on own or unowned farm land.
             -- But how to find that?
             if MapObjectsHider.hideConfirmEnabled then
-                YesNoDialog.show(self.hideObjectDialogCallback, self, g_i18n:getText("moh_dialog_text"):format(self.raycastHideObject.name), g_i18n:getText("moh_dialog_title"))
+                local textKey = "moh_ask_hide";
+                if onlyDecollide then
+                    textKey = "moh_ask_decollide"
+                end
+
+                YesNoDialog.show(self.hideObjectDialogCallback, self, g_i18n:getText(textKey):format(self.raycastHideObject.name), g_i18n:getText("moh_dialog_title"))
             else
                 self:hideObjectDialogCallback(true)
             end
