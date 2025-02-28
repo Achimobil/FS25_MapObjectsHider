@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-	<texts>
-		<text name="input_MAP_OBJECT_HIDER_HIDE"		text="Skrýt objekt na mapě"/>.
-		<text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Odstrait pouze kolizi"/>
-		<text name="input_MAP_OBJECT_HIDER_GUI"			text="Otevřít panel Map Objects Hider"/>
-		<text name="moh_MAP_OBJECT_HIDER_GUI"			text="Zobrazit seznam skrytých objektů"/>
-		<text name="moh_HIDE"							text="Skrýt (%s)"/>
-		<text name="moh_DECOLLIDE"						text="Odstranit kolizi (%s)"/>
-		<text name="moh_SELL"							text="Prodat (%s)"/>
-		<text name="moh_DELETE"							text="Vymazat (%s)"/>
-		<text name="moh_dialog_title"					text="Map Objects Hider"/>
-		<text name="moh_dialog_text"					text="Opravdu chcete skrýt? %s?"/>
-		<text name="moh_delete_split_shape_dialog_text"	text="Opravdu chcete odstranit tento strom?"/>
-		<text name="moh_sell_dialog_text"				text="Jste si jisti, že chcete prodat? %s?"/>
-		<text name="moh_gui_title"						text="Skryté objekty"/>
-		<text name="moh_gui_loading_text"				text="Načítání skrytých objektů..."/>
-		<text name="moh_gui_no_objects_text"			text="Dosud nebyly skryty žádné objekty"/>
-		<text name="moh_gui_button_restore"				text="Obnovit"/>
+    <texts>
+        <text name="input_MAP_OBJECT_HIDER_HIDE"		text="Skrýt objekt na mapě"/>.
+        <text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Odstrait pouze kolizi"/>
+        <text name="input_MAP_OBJECT_HIDER_GUI"			text="Otevřít panel Map Objects Hider"/>
+        <text name="moh_MAP_OBJECT_HIDER_GUI"			text="Zobrazit seznam skrytých objektů"/>
+        <text name="moh_HIDE"							text="Skrýt (%s)"/>
+        <text name="moh_DECOLLIDE"						text="Odstranit kolizi (%s)"/>
+        <text name="moh_SELL"							text="Prodat (%s)"/>
+        <text name="moh_DELETE"							text="Vymazat (%s)"/>
+        <text name="moh_dialog_title"					text="Map Objects Hider"/>
+        <text name="moh_ask_hide"					    text="Opravdu chcete skrýt? %s?"/>
+        <text name="moh_ask_decollide"                  text="Are you sure you want to decollide %s?"/>
+        <text name="moh_delete_split_shape_dialog_text"	text="Opravdu chcete odstranit tento strom?"/>
+        <text name="moh_delete_dialog_text"             text="do you really want to delete %s?"/>
+        <text name="moh_sell_dialog_text"				text="Jste si jisti, že chcete prodat? %s?"/>
+        <text name="moh_gui_title"						text="Skryté objekty"/>
+        <text name="moh_gui_loading_text"				text="Načítání skrytých objektů..."/>
+        <text name="moh_gui_no_objects_text"			text="Dosud nebyly skryty žádné objekty"/>
+        <text name="moh_gui_button_restore"				text="Obnovit"/>
         <text name="moh_camview"                        text="Camera" />
-	</texts>
+    </texts>
 </l10n>

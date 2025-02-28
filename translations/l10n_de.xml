@@ -10,7 +10,8 @@
         <text name="moh_SELL"                           text="Verkaufen (%s)"/>
         <text name="moh_DELETE"                         text="Löschen (%s)"/>
         <text name="moh_dialog_title"                   text="Map Objects Hider"/>
-        <text name="moh_dialog_text"                    text="Sind Sie sicher, dass Sie %s ausblenden möchten?"/>
+        <text name="moh_ask_hide"                       text="Sind Sie sicher, dass Sie %s ausblenden möchten?"/>
+        <text name="moh_ask_decollide"                  text="Sind Sie sicher, dass Sie die Kollision aus %s entfernen möchten?"/>
         <text name="moh_delete_split_shape_dialog_text" text="Möchten Sie diesen Baum wirklich entfernen?"/>
         <text name="moh_delete_dialog_text"             text="Möchten Sie %s wirklich löschen?"/>
         <text name="moh_sell_dialog_text"               text="Sind Sie sicher, dass Sie %s verkaufen möchten?" />

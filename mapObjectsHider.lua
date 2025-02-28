@@ -191,6 +191,16 @@ function MapObjectsHider:update(dt)
             else
                 self.lastRaycastHitObjectId = nil;
                 self.lastRaycastHideObject = nil;
+
+                -- hide and disable action when nothing is now in range
+                if MapObjectsHider.currentEventId ~= nil then
+                    g_inputBinding:setActionEventActive(MapObjectsHider.currentEventId, false)
+                    g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEventId, false)
+                end
+                if MapObjectsHider.currentEvent2Id ~= nil then
+                    g_inputBinding:setActionEventActive(MapObjectsHider.currentEvent2Id, false)
+                    g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEvent2Id, false)
+                end
             end
         end
     else
@@ -361,7 +371,12 @@ function MapObjectsHider:baseObjectActionEvent(onlyDecollide)
             -- check if object to hide is on own or unowned farm land.
             -- But how to find that?
             if MapObjectsHider.hideConfirmEnabled then
-                YesNoDialog.show(self.hideObjectDialogCallback, self, g_i18n:getText("moh_dialog_text"):format(self.raycastHideObject.name), g_i18n:getText("moh_dialog_title"))
+                local textKey = "moh_ask_hide";
+                if onlyDecollide then
+                    textKey = "moh_ask_decollide"
+                end
+
+                YesNoDialog.show(self.hideObjectDialogCallback, self, g_i18n:getText(textKey):format(self.raycastHideObject.name), g_i18n:getText("moh_dialog_title"))
             else
                 self:hideObjectDialogCallback(true)
             end

@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-	<texts>
-		<text name="input_MAP_OBJECT_HIDER_HIDE"		text="Nascondi un oggetto sulla mappa"/>.
-		<text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Rimuovi solo collisione"/>
-		<text name="input_MAP_OBJECT_HIDER_GUI"			text="Apri il pannello Nascondi oggetti mappa"/>
-		<text name="moh_MAP_OBJECT_HIDER_GUI"			text="Mostra l'elenco degli oggetti nascosti"/>
-		<text name="moh_HIDE"							text="Nascondere (%s)"/>
-		<text name="moh_DECOLLIDE"						text="Rimuovi collisione (%s)"/>
-		<text name="moh_SELL"							text="Vendi (%s)"/>
-		<text name="moh_DELETE"							text="Elimina (%s)"/>
-		<text name="moh_dialog_title"					text="Nascondi oggetti mappa"/>
-		<text name="moh_dialog_text"					text="Sei sicuro di volerti nascondere %s?"/>
-		<text name="moh_delete_split_shape_dialog_text"	text="Vuoi davvero rimuovere questo albero??"/>
-		<text name="moh_sell_dialog_text"				text="Sei sicuro di voler vendere %s?" />
-		<text name="moh_gui_title"						text="Oggetti nascosti" />
-		<text name="moh_gui_loading_text"				text="Caricamento oggetti nascosti..." />
-		<text name="moh_gui_no_objects_text"			text="Nessun oggetto è stato ancora nascosto" />
-		<text name="moh_gui_button_restore"				text="Ripristina" />
+    <texts>
+        <text name="input_MAP_OBJECT_HIDER_HIDE"		text="Nascondi un oggetto sulla mappa"/>.
+        <text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Rimuovi solo collisione"/>
+        <text name="input_MAP_OBJECT_HIDER_GUI"			text="Apri il pannello Nascondi oggetti mappa"/>
+        <text name="moh_MAP_OBJECT_HIDER_GUI"			text="Mostra l'elenco degli oggetti nascosti"/>
+        <text name="moh_HIDE"							text="Nascondere (%s)"/>
+        <text name="moh_DECOLLIDE"						text="Rimuovi collisione (%s)"/>
+        <text name="moh_SELL"							text="Vendi (%s)"/>
+        <text name="moh_DELETE"							text="Elimina (%s)"/>
+        <text name="moh_dialog_title"					text="Nascondi oggetti mappa"/>
+        <text name="moh_ask_hide"					    text="Sei sicuro di volerti nascondere %s?"/>
+        <text name="moh_ask_decollide"                  text="Are you sure you want to decollide %s?"/>
+        <text name="moh_delete_split_shape_dialog_text"	text="Vuoi davvero rimuovere questo albero??"/>
+        <text name="moh_delete_dialog_text"             text="do you really want to delete %s?"/>
+        <text name="moh_sell_dialog_text"				text="Sei sicuro di voler vendere %s?" />
+        <text name="moh_gui_title"						text="Oggetti nascosti" />
+        <text name="moh_gui_loading_text"				text="Caricamento oggetti nascosti..." />
+        <text name="moh_gui_no_objects_text"			text="Nessun oggetto è stato ancora nascosto" />
+        <text name="moh_gui_button_restore"				text="Ripristina" />
         <text name="moh_camview"                        text="Telecamera" />
-	</texts>
+    </texts>
 </l10n>
