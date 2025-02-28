@@ -191,6 +191,16 @@ function MapObjectsHider:update(dt)
             else
                 self.lastRaycastHitObjectId = nil;
                 self.lastRaycastHideObject = nil;
+
+                -- hide and disable action when nothing is now in range
+                if MapObjectsHider.currentEventId ~= nil then
+                    g_inputBinding:setActionEventActive(MapObjectsHider.currentEventId, false)
+                    g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEventId, false)
+                end
+                if MapObjectsHider.currentEvent2Id ~= nil then
+                    g_inputBinding:setActionEventActive(MapObjectsHider.currentEvent2Id, false)
+                    g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEvent2Id, false)
+                end
             end
         end
     else
