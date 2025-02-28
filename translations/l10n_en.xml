@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-	<texts>
-		<text name="input_MAP_OBJECT_HIDER_HIDE"		text="Hide a map object"/>.
-		<text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Remove Collision only"/>
-		<text name="input_MAP_OBJECT_HIDER_GUI"			text="Open the Map Objects Hider panel"/>
-		<text name="moh_MAP_OBJECT_HIDER_GUI"			text="Show list of hidden objects"/>
-		<text name="moh_HIDE"							text="Hide (%s)"/>
-		<text name="moh_DECOLLIDE"						text="Remove Collision (%s)"/>
-		<text name="moh_SELL"							text="Sell (%s)"/>
-		<text name="moh_DELETE"							text="Delete (%s)"/>
-		<text name="moh_dialog_title"					text="Map Objects Hider"/>
-		<text name="moh_dialog_text"					text="Are you sure you want to hide %s?"/>
-		<text name="moh_delete_split_shape_dialog_text"	text="Do you really want to remove this tree?"/>
-		<text name="moh_sell_dialog_text"				text="Are you sure you want to sell %s?" />
-		<text name="moh_gui_title"						text="Hidden Objects" />
-		<text name="moh_gui_loading_text"				text="Loading hidden objects..." />
-		<text name="moh_gui_no_objects_text"			text="No objects have been hidden yet" />
-		<text name="moh_gui_button_restore"				text="Restore" />
+    <texts>
+        <text name="input_MAP_OBJECT_HIDER_HIDE"		text="Hide a map object"/>.
+        <text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Remove Collision only"/>
+        <text name="input_MAP_OBJECT_HIDER_GUI"			text="Open the Map Objects Hider panel"/>
+        <text name="moh_MAP_OBJECT_HIDER_GUI"			text="Show list of hidden objects"/>
+        <text name="moh_HIDE"							text="Hide (%s)"/>
+        <text name="moh_DECOLLIDE"						text="Remove Collision (%s)"/>
+        <text name="moh_SELL"							text="Sell (%s)"/>
+        <text name="moh_DELETE"							text="Delete (%s)"/>
+        <text name="moh_dialog_title"					text="Map Objects Hider"/>
+        <text name="moh_dialog_text"					text="Are you sure you want to hide %s?"/>
+        <text name="moh_delete_split_shape_dialog_text"	text="Do you really want to remove this tree?"/>
+        <text name="moh_delete_dialog_text"             text="do you really want to delete %s?"/>
+        <text name="moh_sell_dialog_text"				text="Are you sure you want to sell %s?" />
+        <text name="moh_gui_title"						text="Hidden Objects" />
+        <text name="moh_gui_loading_text"				text="Loading hidden objects..." />
+        <text name="moh_gui_no_objects_text"			text="No objects have been hidden yet" />
+        <text name="moh_gui_button_restore"				text="Restore" />
         <text name="moh_camview"                        text="Camera" />
-	</texts>
+    </texts>
 </l10n>

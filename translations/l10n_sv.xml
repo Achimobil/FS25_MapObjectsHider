@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-	<translationContributors>Swedish Fika</translationContributors>
-	<texts>
-		<text name="input_MAP_OBJECT_HIDER_HIDE"		text="Dölj ett Map objekt"/>.
-		<text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Remove Collision only"/>
-		<text name="input_MAP_OBJECT_HIDER_GUI"			text="Öppna Objekt Döljar panelen"/>
-		<text name="moh_MAP_OBJECT_HIDER_GUI"			text="Visa en lista över dolda okjekt"/>
-		<text name="moh_HIDE"							text="Dölj (%s)"/>
-		<text name="moh_DECOLLIDE"						text="Remove Collision (%s)"/>
-		<text name="moh_SELL"							text="Sälj (%s)"/>
-		<text name="moh_DELETE"							text="Ta bort (%s)"/>
-		<text name="moh_dialog_title"					text="Map Objekt Döljare"/>
-		<text name="moh_dialog_text"					text="Är du säker på att du vill dölja %s?"/>
-		<text name="moh_delete_split_shape_dialog_text"	text="Är du helt säker på att du vill ta bort trädet?"/>
-		<text name="moh_sell_dialog_text"				text="Är du säker på att du vill sälja %s?" />
-		<text name="moh_gui_title"						text="Dolda objekt" />
-		<text name="moh_gui_loading_text"				text="Laddar dolda objekt..." />
-		<text name="moh_gui_no_objects_text"			text="Inga objekt har blivit dolda än" />
-		<text name="moh_gui_button_restore"				text="Återställ" />
+    <translationContributors>Swedish Fika</translationContributors>
+    <texts>
+        <text name="input_MAP_OBJECT_HIDER_HIDE"		text="Dölj ett Map objekt"/>.
+        <text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Remove Collision only"/>
+        <text name="input_MAP_OBJECT_HIDER_GUI"			text="Öppna Objekt Döljar panelen"/>
+        <text name="moh_MAP_OBJECT_HIDER_GUI"			text="Visa en lista över dolda okjekt"/>
+        <text name="moh_HIDE"							text="Dölj (%s)"/>
+        <text name="moh_DECOLLIDE"						text="Remove Collision (%s)"/>
+        <text name="moh_SELL"							text="Sälj (%s)"/>
+        <text name="moh_DELETE"							text="Ta bort (%s)"/>
+        <text name="moh_dialog_title"					text="Map Objekt Döljare"/>
+        <text name="moh_dialog_text"					text="Är du säker på att du vill dölja %s?"/>
+        <text name="moh_delete_split_shape_dialog_text"	text="Är du helt säker på att du vill ta bort trädet?"/>
+        <text name="moh_delete_dialog_text"             text="do you really want to delete %s?"/>
+        <text name="moh_sell_dialog_text"				text="Är du säker på att du vill sälja %s?" />
+        <text name="moh_gui_title"						text="Dolda objekt" />
+        <text name="moh_gui_loading_text"				text="Laddar dolda objekt..." />
+        <text name="moh_gui_no_objects_text"			text="Inga objekt har blivit dolda än" />
+        <text name="moh_gui_button_restore"				text="Återställ" />
         <text name="moh_camview"                        text="Camera" />
-	</texts>
+    </texts>
 </l10n>
