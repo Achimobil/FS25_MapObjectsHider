@@ -11,9 +11,9 @@
         <text name="moh_DELETE"							text="Elimina (%s)"/>
         <text name="moh_dialog_title"					text="Nascondi oggetti mappa"/>
         <text name="moh_ask_hide"					    text="Sei sicuro di volerti nascondere %s?"/>
-        <text name="moh_ask_decollide"                  text="Are you sure you want to decollide %s?"/>
+        <text name="moh_ask_decollide"                  text="Sei sicuro di voler decollidere? %s?"/>
         <text name="moh_delete_split_shape_dialog_text"	text="Vuoi davvero rimuovere questo albero??"/>
-        <text name="moh_delete_dialog_text"             text="do you really want to delete %s?"/>
+        <text name="moh_delete_dialog_text"             text="vuoi davvero eliminare %s?"/>
         <text name="moh_sell_dialog_text"				text="Sei sicuro di voler vendere %s?" />
         <text name="moh_gui_title"						text="Oggetti nascosti" />
         <text name="moh_gui_loading_text"				text="Caricamento oggetti nascosti..." />
