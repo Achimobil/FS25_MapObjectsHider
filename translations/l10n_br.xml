@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <texts>
+        <text name="input_MAP_OBJECT_HIDER_HIDE"		text="Ocultar um objeto do mapa"/>.
+        <text name="input_MAP_OBJECT_HIDER_DECOLLIDE"	text="Remover somente colisão"/>
+        <text name="input_MAP_OBJECT_HIDER_GUI"			text="Abra o painel Map Objects Hider (Ocultar objetos do mapa)"/>
+        <text name="moh_MAP_OBJECT_HIDER_GUI"			text="Mostrar lista de objetos ocultos"/>
+        <text name="moh_HIDE"							text="Ocultar (%s)"/>
+        <text name="moh_DECOLLIDE"						text="Remover colisão (%s)"/>
+        <text name="moh_SELL"							text="Vender (%s)"/>
+        <text name="moh_DELETE"							text="Deletar (%s)"/>
+        <text name="moh_dialog_title"					text="Ocultar objetos do mapa"/>
+        <text name="moh_ask_hide"					    text="Tem certeza de que deseja ocultar %s?"/>
+        <text name="moh_ask_decollide"                  text="Tem certeza de que deseja descoldir %s?"/>
+        <text name="moh_delete_split_shape_dialog_text"	text="Você realmente deseja remover essa árvore?"/>
+        <text name="moh_delete_dialog_text"             text="Você realmente deseja excluir %s?"/>
+        <text name="moh_sell_dialog_text"				text="Tem certeza de que deseja vender %s?" />
+        <text name="moh_gui_title"						text="Objetos ocultos" />
+        <text name="moh_gui_loading_text"				text="Carregando objetos ocultos..." />
+        <text name="moh_gui_no_objects_text"			text="Nenhum objeto foi ocultado ainda" />
+        <text name="moh_gui_button_restore"				text="Restaurar" />
+        <text name="moh_camview"                        text="Câmera" />
+    </texts>
+</l10n>
