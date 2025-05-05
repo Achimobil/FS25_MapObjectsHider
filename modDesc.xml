@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="96">
+<modDesc descVersion="97">
     <author>Achimobil</author>
-    <version>1.1.0.2</version>
+    <version>1.1.0.3</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -35,7 +35,10 @@ Das Verändern oder erneutes Hochladen, ob ganz oder in Teilen, ist nicht gestat
 
 Fehler und Anregungen gerne auf <a href="https://github.com/Achimobil/FS25_MapObjectsHide">GitHub</a>.
 
-Changelog 1.1.0.0
+Changelog
+1.1.0.3 - PL Übersetzungen von Ziuta
+
+1.1.0.0
 - UK Übersetzungen eingefügt
 - Einige null reference lua fehler, die gemeldet wurden, gefixed
 ]]></de>
