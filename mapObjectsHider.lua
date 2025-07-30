@@ -447,7 +447,7 @@ function MapObjectsHider:hideObject(objectId, name, hiderPlayerName, onlyDecolli
 end
 
 --- Show the given object index
--- @param integer objectIndex
+-- @param string objectIndex
 -- @return any nothing
 function MapObjectsHider:showObject(objectIndex)
     MapObjectsHider.DebugText("showObject:(%s)", objectIndex);
@@ -461,7 +461,7 @@ function MapObjectsHider:showObject(objectIndex)
             function(hiddenObjects, index)
                 local hiddenObject = hiddenObjects[index]
                 if hiddenObject.index == objectIndex then
-                    -- inviare evento di ripristino
+                    MapObjectsHider.DebugTable("hiddenObject", hiddenObject)
                     self:showNode(hiddenObject.id)
                     ShowCollideNodeEvent.sendToClients(true, hiddenObject.index)
                     for _, col in pairs(hiddenObject.collisions) do
@@ -562,6 +562,7 @@ end
 --- Show the node
 -- @param integer nodeId
 function MapObjectsHider:showNode(nodeId)
+    MapObjectsHider.DebugText("showNode:(%s)", nodeId);
     if nodeId == nil then
         MapObjectsHider.info("node id null, not showing node");
         return;

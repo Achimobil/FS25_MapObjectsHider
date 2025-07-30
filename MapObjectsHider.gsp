@@ -3,9 +3,10 @@
     <projectName>MapObjectsHider</projectName>
     <projectSources>
         <source path="D:/Achim/source/repos/FS25_MapObjectsHider/" />
-        <source path="E:/Modding/Giants/GiantsStudioOwnReferences/" />
+        <source path="D:/Achim/source/repos/FS25_GiantsStudioReferences/" />
     </projectSources>
-    <excludePaths></excludePaths>
+    <excludePaths>
+    </excludePaths>
     <gameUserProfileAppDirectory>%gameuserprofile%/FarmingSimulator2025/</gameUserProfileAppDirectory>
     <gameSourceDirectory>C:/Program Files (x86)/Farming Simulator 2025/</gameSourceDirectory>
     <scriptBinding>C:/Program Files (x86)/Farming Simulator 2025/sdk/debugger/scriptBinding.xml</scriptBinding>

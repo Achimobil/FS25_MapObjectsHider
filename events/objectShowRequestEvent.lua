@@ -58,7 +58,7 @@ function ObjectShowRequestEvent:run(connection)
 end
 
 ---Send the request to the server
--- @param integer objectIndex
+-- @param string objectIndex
 function ObjectShowRequestEvent.sendToServer(objectIndex)
     MapObjectsHider.DebugText("ObjectShowRequestEvent.sendToServer(%s)", objectIndex);
     g_client:getServerConnection():sendEvent(ObjectShowRequestEvent.new(objectIndex))

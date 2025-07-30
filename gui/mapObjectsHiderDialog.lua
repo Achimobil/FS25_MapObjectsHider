@@ -147,6 +147,7 @@ function MapObjectsHiderDialog:onClickRestore()
 
     if self.currentSelectedHiddenObject ~= nil then
         ObjectShowRequestEvent.sendToServer(self.currentSelectedHiddenObject.index);
+        self.lastSelectedHiddenObject = nil;
 
         self.startLoadingTime = getTimeSec();
         RequestObjectsListEvent.sendToServer();
@@ -158,6 +159,7 @@ end
 -- @param integer selectedIndex
 function MapObjectsHiderDialog:onListSelectionChanged(list, _, selectedIndex)
     MapObjectsHider.DebugText("MapObjectsHiderDialog:onListSelectionChanged(%s, _, %s)", list, selectedIndex);
+    self:hideLastHiddenObject();
     if self.hiddenObjects[selectedIndex] ~= nil then
         self.currentSelectedHiddenObjectIndex = selectedIndex;
         self.currentSelectedHiddenObject = self.hiddenObjects[selectedIndex];
@@ -202,15 +204,15 @@ function MapObjectsHiderDialog:showHiddenObject(hiddenObject)
             end
         end
     )
-    setVisibility(hiddenObject.id, true)
-    self.lastSelectedHiddenObject = hiddenObject
+    setVisibility(hiddenObject.id, true);
+    self.lastSelectedHiddenObject = hiddenObject;
     return bestRadius
 end
 
 ---hide the last shown object again
 function MapObjectsHiderDialog:hideLastHiddenObject()
     if self.lastSelectedHiddenObject ~= nil then
-
+        MapObjectsHider.DebugText("hideLastHiddenObject() self.lastSelectedHiddenObject.id:%s", self.lastSelectedHiddenObject.id);
         if not self.lastSelectedHiddenObject.onlyDecollide then
             setVisibility(self.lastSelectedHiddenObject.id, false)
         end
