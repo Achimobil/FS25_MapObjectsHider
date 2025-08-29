@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="100">
     <author>Achimobil</author>
-    <version>1.1.0.4</version>
+    <version>1.1.0.5</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -30,14 +30,19 @@ Aber Vorsicht!
 - Wenn Gebäude in der Map nicht korrekt definiert sind, so kann dies zu lustigen Effekten führen.
 - Es ist möglich Mapränder auszublenden. Hierdurch kann man dann ins Bodenlose fallen. Sollte man nicht machen.
 
+Rechte im MP
+- Auf dem eigenen Farmland benötigt man das Recht Placables zu verkaufen oder man muss als Admin angemeldet sein
+- Auf dem allgemeinen Land oder auf fremden Farmland kann nur als Admin etwas entfernen
+
 Upload auf anderen Seiten außer dem ModHub ist verboten und somit illegal, Verlinkung nur mit Original-Downloadlink. KEIN Ersatzlink!
 Das Verändern oder erneutes Hochladen, ob ganz oder in Teilen, ist nicht gestattet!
 
-Fehler und Anregungen gerne auf <a href="https://github.com/Achimobil/FS25_MapObjectsHide">GitHub</a>.
+Fehler und Anregungen gerne auf <a href="https://github.com/Achimobil/FS25_MapObjectsHider">GitHub</a>.
 
 Changelog
 1.1.0.3 - PL Übersetzungen von Ziuta
 1.1.0.4 - Probleme mit wieder einblenden und mit wieder Sichtbarsein nach Dialogbenutzung behoben
+1.1.0.5 - Anpassung der Rechte im MP
 
 1.1.0.0
 - UK Übersetzungen eingefügt
@@ -62,10 +67,14 @@ But be careful!
 - If buildings are not defined correctly in the map, this can lead to funny effects.
 - It is possible to hide map edges. This can cause you to fall into a bottomless pit. You should not do this.
 
+Rights in MP
+- On your own farmland, you need the right to sell placables or you must be logged in as an admin
+- On public land or on other people's farmland, only admins can remove items
+
 Uploading to sites other than ModHub is prohibited and therefore illegal, linking only with original download link. NO substitute link!
 Modifying and re-uploading in whole or in part is not allowed!
 
-Bugs and suggestions welcome on <a href="https://github.com/Achimobil/FS25_MapObjectsHide">GitHub</a>.
+Bugs and suggestions welcome on <a href="https://github.com/Achimobil/FS25_MapObjectsHider">GitHub</a>.
 
 Changelog 1.1.0.0
 - UK Translations added

@@ -106,11 +106,20 @@ function MapObjectsHider:update(dt)
             local rigidBodyType = getRigidBodyType(hitObjectId)
 --             MapObjectsHider.DebugText("rigidBodyType %s", rigidBodyType);
 
-            if (rigidBodyType == RigidBodyType.STATIC or rigidBodyType == RigidBodyType.DYNAMIC) then
+            -- Only Master User or on own land and having SELL_PLACEABLE permission can hide/delete/sell anything
+            local playerX, _, playerZ = g_localPlayer:getPosition();
+--             MapObjectsHider.DebugText("position %s %s", playerX, playerZ);
+            local farmlandId = g_farmlandManager:getFarmlandIdAtWorldPosition(playerX, playerZ);
+            local playerOnOwnFarmLand = farmlandId == g_currentMission:getFarmId();
+--             MapObjectsHider.DebugText("playerOnOwnFarmLand %s", playerOnOwnFarmLand);
+            local playerAllowedToDeleteOrHide = (playerOnOwnFarmLand and g_currentMission:getHasPlayerPermission(Farm.PERMISSION.SELL_PLACEABLE)) or g_currentMission.isMasterUser;
+
+            if (rigidBodyType == RigidBodyType.STATIC or rigidBodyType == RigidBodyType.DYNAMIC) and playerAllowedToDeleteOrHide then
 --                 MapObjectsHider.DebugText("splitType %s", getSplitType(hitObjectId));
                 if getSplitType(hitObjectId) ~= 0 then
                     -- when is a tree deletable? Only when on own or unowned land
                     local splitTypeObject = g_splitShapeManager:getSplitTypeByIndex(getSplitType(hitObjectId))
+
                     self.raycastHideObject = {name = splitTypeObject.title or "something", objectId = hitObjectId, isSplitShape = true}
                     if MapObjectsHider.debug then
                         -- debug placeable
@@ -143,9 +152,10 @@ function MapObjectsHider:update(dt)
 
 
                             local allowedToSell = g_currentMission:getFarmId() == object:getOwnerFarmId();
-                            local canSell = object:canBeSold() and storeItem.canBeSold;
+                            local canSell = object:canBeSold() and storeItem.canBeSold and g_currentMission:getHasPlayerPermission(Farm.PERMISSION.SELL_PLACEABLE);
                             local isFromSpectator = object:getOwnerFarmId() == 0;
 --                             MapObjectsHider.DebugText("allowedToSell = %s - canSell = %s", allowedToSell, canSell);
+                            MapObjectsHider.DebugText("g_currentMission.isMasterUser %s", g_currentMission.isMasterUser);
                             if canSell then
                                 if allowedToSell then
                                     -- this is a placable and the user is allowed to sell
@@ -155,7 +165,7 @@ function MapObjectsHider:update(dt)
                                     end
                                     objectFound = true;
                                     actionText = g_i18n:getText("moh_SELL"):format(self.raycastHideObject.name);
-                                elseif isFromSpectator then
+                                elseif isFromSpectator and g_currentMission.isMasterUser == true then
                                     -- this is a placable from spectator and then it needs to be deleted
                                     self.raycastHideObject = {name = storeItem.name, object = object, isSellable = true, needsToBeDeleted = true};
                                     if MapObjectsHider.debug then
@@ -448,7 +458,6 @@ end
 
 --- Show the given object index
 -- @param string objectIndex
--- @return any nothing
 function MapObjectsHider:showObject(objectIndex)
     MapObjectsHider.DebugText("showObject:(%s)", objectIndex);
     if g_server ~= nil then
