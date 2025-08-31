@@ -91,6 +91,9 @@ function MapObjectsHider:update(dt)
         self.hideObjectDebugInfo = nil;
     end
 
+    -- nil abfragen die eigentlich nicht sein können, aber doch gemeldet wurden
+    if g_localPlayer == nil then return end;
+
     -- raycast aus dem neuen 25er targeter abgerufen
     local hitObjectId = g_localPlayer.targeter:getClosestTargetedNodeFromType(MapObjectsHider);
     if hitObjectId ~= nil and entityExists(hitObjectId) then

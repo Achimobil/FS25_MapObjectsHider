@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="100">
     <author>Achimobil</author>
-    <version>1.1.0.5</version>
+    <version>1.1.0.6</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -43,6 +43,7 @@ Changelog
 1.1.0.3 - PL Übersetzungen von Ziuta
 1.1.0.4 - Probleme mit wieder einblenden und mit wieder Sichtbarsein nach Dialogbenutzung behoben
 1.1.0.5 - Anpassung der Rechte im MP
+1.1.0.6 - g_localPlayer nil fehler abgefangen
 
 1.1.0.0
 - UK Übersetzungen eingefügt
