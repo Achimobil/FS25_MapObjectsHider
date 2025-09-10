@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="100">
+<modDesc descVersion="101">
     <author>Achimobil</author>
-    <version>1.1.0.6</version>
+    <version>1.2.0.0</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -40,10 +40,11 @@ Das Verändern oder erneutes Hochladen, ob ganz oder in Teilen, ist nicht gestat
 Fehler und Anregungen gerne auf <a href="https://github.com/Achimobil/FS25_MapObjectsHider">GitHub</a>.
 
 Changelog
-1.1.0.3 - PL Übersetzungen von Ziuta
-1.1.0.4 - Probleme mit wieder einblenden und mit wieder Sichtbarsein nach Dialogbenutzung behoben
-1.1.0.5 - Anpassung der Rechte im MP
-1.1.0.6 - g_localPlayer nil fehler abgefangen
+1.2.0.0
+- Neue übersetzungen in BR und weitere verbesserungen der bestehenden Übersetzungen
+- Probleme mit wieder einblenden und mit wieder Sichtbarsein nach Dialogbenutzung behoben
+- Im MP werden jetzt Rechte benötigt wenn man nicht Admin ist zum Ausblenden
+- Ein paar gemeldete lua Fehler abgefangen
 
 1.1.0.0
 - UK Übersetzungen eingefügt
@@ -77,7 +78,14 @@ Modifying and re-uploading in whole or in part is not allowed!
 
 Bugs and suggestions welcome on <a href="https://github.com/Achimobil/FS25_MapObjectsHider">GitHub</a>.
 
-Changelog 1.1.0.0
+Changelog
+1.2.0.0
+- New translations in BR and further improvements to existing translations
+- Problems with reappearing and visibility after using dialog fixed
+- In MP, rights are now required to hide stuff if you are not an admin
+- A few reported lua errors caught
+
+1.1.0.0
 - UK Translations added
 - Fix some reported null reference lua errors
 ]]></en>
