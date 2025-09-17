@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="101">
     <author>Achimobil</author>
-    <version>1.2.0.0</version>
+    <version>1.2.0.1</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -40,7 +40,7 @@ Das Verändern oder erneutes Hochladen, ob ganz oder in Teilen, ist nicht gestat
 Fehler und Anregungen gerne auf <a href="https://github.com/Achimobil/FS25_MapObjectsHider">GitHub</a>.
 
 Changelog
-1.2.0.0
+1.2.0.1
 - Neue übersetzungen in BR und weitere verbesserungen der bestehenden Übersetzungen
 - Probleme mit wieder einblenden und mit wieder Sichtbarsein nach Dialogbenutzung behoben
 - Im MP werden jetzt Rechte benötigt wenn man nicht Admin ist zum Ausblenden

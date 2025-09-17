@@ -107,14 +107,11 @@ function MapObjectsHider:update(dt)
             local actionText = "";
             local action2Text = "";
             local rigidBodyType = getRigidBodyType(hitObjectId)
---             MapObjectsHider.DebugText("rigidBodyType %s", rigidBodyType);
 
             -- Only Master User or on own land and having SELL_PLACEABLE permission can hide/delete/sell anything
             local playerX, _, playerZ = g_localPlayer:getPosition();
---             MapObjectsHider.DebugText("position %s %s", playerX, playerZ);
-            local farmlandId = g_farmlandManager:getFarmlandIdAtWorldPosition(playerX, playerZ);
-            local playerOnOwnFarmLand = farmlandId == g_currentMission:getFarmId();
---             MapObjectsHider.DebugText("playerOnOwnFarmLand %s", playerOnOwnFarmLand);
+            local playerFarmId = g_currentMission:getFarmId();
+            local playerOnOwnFarmLand = g_farmlandManager:getIsOwnedByFarmAtWorldPosition(playerFarmId, playerX, playerZ);
             local playerAllowedToDeleteOrHide = (playerOnOwnFarmLand and g_currentMission:getHasPlayerPermission(Farm.PERMISSION.SELL_PLACEABLE)) or g_currentMission.isMasterUser;
 
             if (rigidBodyType == RigidBodyType.STATIC or rigidBodyType == RigidBodyType.DYNAMIC) and playerAllowedToDeleteOrHide then
@@ -158,7 +155,7 @@ function MapObjectsHider:update(dt)
                             local canSell = object:canBeSold() and storeItem.canBeSold and g_currentMission:getHasPlayerPermission(Farm.PERMISSION.SELL_PLACEABLE);
                             local isFromSpectator = object:getOwnerFarmId() == 0;
 --                             MapObjectsHider.DebugText("allowedToSell = %s - canSell = %s", allowedToSell, canSell);
-                            MapObjectsHider.DebugText("g_currentMission.isMasterUser %s", g_currentMission.isMasterUser);
+--                             MapObjectsHider.DebugText("g_currentMission.isMasterUser %s", g_currentMission.isMasterUser);
                             if canSell then
                                 if allowedToSell then
                                     -- this is a placable and the user is allowed to sell
@@ -178,7 +175,7 @@ function MapObjectsHider:update(dt)
                                     actionText = g_i18n:getText("moh_DELETE"):format(self.raycastHideObject.name);
                                 end
                             else
---                                 MapObjectsHider.DebugText("Placable not sellable");
+                                MapObjectsHider.DebugText("Placable not sellable");
                             end
                         end
                     end
@@ -194,12 +191,13 @@ function MapObjectsHider:update(dt)
                     g_inputBinding:setActionEventActive(MapObjectsHider.currentEventId, true);
                     g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEventId, true);
                 end
-                if MapObjectsHider.action2Text ~= "" then
+                if action2Text ~= "" then
                     g_inputBinding:setActionEventText(MapObjectsHider.currentEvent2Id, action2Text);
                     g_inputBinding:setActionEventActive(MapObjectsHider.currentEvent2Id, true);
                     g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEvent2Id, true);
                 else
                     g_inputBinding:setActionEventActive(MapObjectsHider.currentEvent2Id, false);
+                    g_inputBinding:setActionEventTextVisibility(MapObjectsHider.currentEvent2Id, false)
                 end
             else
                 self.lastRaycastHitObjectId = nil;
