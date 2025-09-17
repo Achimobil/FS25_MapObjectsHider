@@ -6,6 +6,7 @@
     <title>
         <de>Map Objekt Hider</de>
         <en>Map Objects Hider</en>
+        <es>Ocultador de Objetos del Mapa</es>
         <cz>Skrývání Objektů Na Mapě</cz>
         <it>Nascondi Oggetti Della Mappa</it>
     </title>
@@ -89,6 +90,46 @@ Changelog
 - UK Translations added
 - Fix some reported null reference lua errors
 ]]></en>
+<es><![CDATA[Si el creador del mapa tenía otros planes que tú, deja de hacer ajustes directamente en el mapa y oculta lo que te molesta en el juego.
+
+Este mod está basado en el mod de LS22 y ha sido parcialmente reconstruido para LS25.
+
+Los objetos del mapa como edificios, barreras, vallas y mucho más pueden ocultarse.
+Solo los objetos ocultos pueden recuperarse posteriormente mediante el diálogo.
+Esto se guarda en la partida para que permanezcan ocultos de forma permanente mientras el mapa no cambie.
+
+Los edificios colocables se venden o eliminan y no se ocultan. Debes tener autorización para venderlos o eliminarlos.
+Los árboles generalmente se eliminan y no se ocultan.
+Los objetos vendidos o eliminados no pueden restablecerse.
+
+¡Pero ten cuidado!
+- No todos los tipos de objetos ni todos los objetos pueden eliminarse. (Por ejemplo, los coches aparcados no pueden eliminarse porque no pueden reconocerse).
+- Si la jerarquía de los objetos en el mapa cambia (por ejemplo, por cambios en GIANTS Editor), algunos objetos pueden reaparecer y tendrás que eliminarlos de nuevo.
+- Si un mapa mod no está configurado correctamente, eliminar algunos árboles puede causar el problema mencionado arriba.
+- Si los edificios no están definidos correctamente en el mapa, esto puede provocar efectos extraños.
+- Es posible ocultar los bordes del mapa. Esto puede hacer que caigas en un vacío sin fondo. No deberías hacerlo.
+
+Derechos en multijugador
+- En tu propia parcela, necesitas el derecho para vender objetos colocables o debes estar conectado como administrador.
+- En terrenos públicos o de otros jugadores, solo los administradores pueden eliminar objetos.
+
+Subir el mod a sitios distintos de ModHub está prohibido y es ilegal, solo se permite enlazar con el enlace de descarga original. ¡NO enlaces alternativos!
+No está permitido modificar ni volver a subir el mod, ni total ni parcialmente.
+
+Errores y sugerencias en <a href="https://github.com/Achimobil/FS25_MapObjectsHider">GitHub</a>.
+
+Registro de cambios
+1.2.0.0
+- Nuevas traducciones en BR y mejoras en las traducciones existentes
+- Solucionados problemas con la reaparición y visibilidad tras usar el diálogo
+- En multijugador ahora se requieren permisos para ocultar objetos si no eres administrador
+- Corregidos algunos errores de lua reportados
+
+1.1.0.0
+- Añadidas traducciones al inglés británico
+- Corregidos algunos errores de referencia nula en lua reportados
+]]></es>
+]]></es>
     </description>
 
     <multiplayer supported="true"/>
