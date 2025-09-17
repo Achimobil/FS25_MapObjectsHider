@@ -22,3 +22,10 @@ Everything in my mods may not be copied in whole or in part into your own mods o
 This is international law and is covered by copyright law. Anyone who nevertheless incorporates parts of my mods into their mods and publishes them without permission automatically releases their mods for unrestricted use and republication for me. I reserve the right to make use of this right.
 Posting my mods on other download portals is only allowed with the link pointing to the GitHub.
 Any form of self-hosting is prohibited
+
+## ES
+Todo el contenido de mis mods no puede ser copiado, ni total ni parcialmente, en tus propios mods ni republicado de ninguna forma, a menos que se permita expresamente.
+Esto está protegido por la ley internacional y cubierto por derechos de autor. Quien incorpore partes de mis mods en sus propios mods y los publique sin permiso, automáticamente libera sus mods para uso y republicación sin restricciones por mi parte. Me reservo el derecho de hacer uso de este derecho.
+La publicación de mis mods en otros portales de descarga solo está permitida si se incluye el enlace que apunta a GitHub.
+Cualquier forma de alojamiento propio está prohibida.
+
