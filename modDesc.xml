@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="101">
     <author>Achimobil</author>
-    <version>1.2.0.1</version>
+    <version>1.2.0.2</version>
 
     <title>
         <de>Map Objekt Hider</de>
         <en>Map Objects Hider</en>
+        <es>Ocultador de Objetos del Mapa</es>
         <cz>Skrývání Objektů Na Mapě</cz>
         <it>Nascondi Oggetti Della Mappa</it>
     </title>
