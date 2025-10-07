@@ -403,7 +403,7 @@ function MapObjectsHider:sellObjectDialogCallback(yes)
         if self.raycastHideObjectBackup.needsToBeDeleted then
             DeletePlacableEvent.sendEvent(self.raycastHideObjectBackup.object)
         else
-            g_client:getServerConnection():sendEvent(SellPlaceableEvent.new(self.raycastHideObjectBackup.object, false, true, true))
+            g_client:getServerConnection():sendEvent(SellPlaceableEvent.new(self.raycastHideObjectBackup.object, false, false, true))
         end
     end
 end
