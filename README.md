@@ -3,7 +3,7 @@ The Mod from FS19 partly converted and partly rewritten by me to FS22.
 Complete new rebasing it in FFS25
 
 # ModHub
-comming soon
+https://www.farming-simulator.com/mod.php?mod_id=310506&title=fs2025
 
 # Build my Mods self
 Deutsche Anleitung: https://youtu.be/qG8wNBkjB3w
