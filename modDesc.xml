@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="101">
+<modDesc descVersion="106">
     <author>Achimobil</author>
-    <version>1.2.0.4</version>
+    <version>1.2.0.5</version>
 
     <title>
         <de>Map Objekt Hider</de>
@@ -43,6 +43,7 @@ Fehler und Anregungen gerne auf <a href="https://github.com/Achimobil/FS25_MapOb
 Changelog
 
 1.2.0.4 - Beim Verkaufen über den Hider wird jetzt nicht mehr der volle Kaufpreis erstattet
+1.2.0.5 - Fehler wenn elemente von Preplaced ausgeblendet werden und das Preplaced verkauft wurde, behoben
 
 1.2.0.3
 - Neue Ingame Übersetzungen in BR/ES und weitere verbesserungen der bestehenden Übersetzungen

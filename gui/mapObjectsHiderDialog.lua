@@ -49,9 +49,12 @@ end
 function MapObjectsHiderDialog:onHiddenObjectsReceived(hiddenObjects)
     self.hiddenObjects = hiddenObjects
     local mapNode = MapObjectsHider.mapNode
+    MapObjectsHider.DebugText("mapNode=%s exists=%s", mapNode, (mapNode ~= nil and entityExists(mapNode)) and "true" or "false");
+
     local dateFormat = "%d/%m/%Y %H:%M:%S" -- change this based on locale
     for _, ho in pairs(self.hiddenObjects) do
         ho.id = EntityUtility.indexToNode(ho.index, mapNode);
+        MapObjectsHider.DebugText("index=%s type=%s -> id=%s exists=%s", ho.index, type(ho.index), ho.id, (ho.id ~= nil and entityExists(ho.id)) and "true" or "false");
         if ho.id == nil then
             ho.name = "Unnamed";
         else

@@ -46,7 +46,15 @@ end
 -- @param Connection connection
 function RequestObjectsListEvent:run(connection)
     if g_server ~= nil then
-        connection:sendEvent(SendObjectsListEvent.new(MapObjectsHider.hiddenObjects))
+        -- cleanup for the case that a base object from a hidden object was deleted or sold or a preplaced which was removed
+        for i = #MapObjectsHider.hiddenObjects, 1, -1 do
+            local ho = MapObjectsHider.hiddenObjects[i];
+            if EntityUtility.indexToNode(ho.index, MapObjectsHider.mapNode) == nil then
+                table.remove(MapObjectsHider.hiddenObjects, i);
+            end
+        end
+
+        connection:sendEvent(SendObjectsListEvent.new(MapObjectsHider.hiddenObjects));
     end
 end
 

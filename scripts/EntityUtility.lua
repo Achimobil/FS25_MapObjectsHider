@@ -70,23 +70,34 @@ end
 -- @return integer nodeId id of node
 function EntityUtility.indexToNode(nodeIndex, rootId)
     if nodeIndex == nil or rootId == nil or not entityExists(rootId) then
-        return nil
+        return nil;
     end
-    local objectId = rootId
-    local indexes = StringUtility.split(nodeIndex, "|")
-    for _, index in pairs(indexes) do
-        index = tonumber(index)
+
+    local objectId = rootId;
+    local indexes = StringUtility.split(nodeIndex, "|");
+
+    for step, index in pairs(indexes) do
+        local rawIndex = index;
+        index = tonumber(index);
+
         if type(index) == "number" then
-            if getNumOfChildren(objectId) > index then
-                objectId = getChildAt(objectId, index)
+            local childCount = getNumOfChildren(objectId);
+
+            if childCount > index then
+                objectId = getChildAt(objectId, index);
             else
-                return nil
+                -- Debug why the path breaks (single log line)
+                MapObjectsHider.DebugText("indexToNode FAIL path=%s step=%s want=%s children=%s parentId=%s parentName=%s", nodeIndex, step, rawIndex, childCount, objectId, getName(objectId));
+                return nil;
             end
         else
-            return nil
+            -- Debug invalid segment (single log line)
+            MapObjectsHider.DebugText("indexToNode FAIL nonNumeric path=%s step=%s segment=%s parentId=%s parentName=%s", nodeIndex, step, rawIndex, objectId, getName(objectId));
+            return nil;
         end
     end
-    return objectId
+
+    return objectId;
 end
 
 --- Queries a node hierarchy
